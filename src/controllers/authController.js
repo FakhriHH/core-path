@@ -195,10 +195,6 @@ const forgotPassword = async (req, res) => {
                           </td>
                       </tr>
                   </table>
-                  <p>If the button above does not work, copy and paste the following link into your browser:</p>
-                  <p style="word-wrap: break-word;">
-                      <a href="${resetLink}" style="color: #007BFF;">${resetLink}</a>
-                  </p>
                   <p>If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
                   <hr style="border: 0; border-top: 1px solid #ddd;">
                   <p style="text-align: center; font-size: 12px; color: #777;">
