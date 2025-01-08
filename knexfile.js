@@ -1,21 +1,21 @@
 const knex = require('knex');
 const dotenv = require('dotenv');
+dotenv.config();
 
-module.exports = {
-    development: {
-      client: 'mysql2',
-      connection: {
-        host: 'localhost',  // host database
-        user: 'root',       // username MySQL Anda
-        password: '', // password MySQL Anda
-        database: 'education_anak',  // nama database Anda
-      },
-      migrations: {
-        directory: './src/database/migrations',
-      },
-      seeds: {
-        directory: './src/database/seeds',
-      },
-    },
-  };
-  
+const db = knex({
+  client: 'mysql2',
+  connection: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  },
+  migrations: {
+    directory: '../database/migrations',
+  },
+  seeds: {
+    directory: '../database/seeds',
+  },
+});
+
+module.exports = db;
