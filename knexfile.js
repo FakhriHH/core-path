@@ -8,7 +8,7 @@ module.exports = {
         host: 'localhost',  // host database
         user: 'root',       // username MySQL Anda
         password: '', // password MySQL Anda
-        database: 'education_anak',  // nama database Anda
+        database: 'core_path',  // nama database Anda
       },
       migrations: {
         directory: './src/database/migrations',

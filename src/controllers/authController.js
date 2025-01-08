@@ -7,7 +7,7 @@ const db = require('../config/knex');
 
 // Registrasi User
 const register = async (req, res) => {
-  const { name, email, password, phone, date_of_birth, gender, address, role_id = 3 } = req.body; // Default role siswa
+  const { name, email, password, phone, date_of_birth, gender, address, id_role = 3 } = req.body; // Default role siswa
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,7 +19,7 @@ const register = async (req, res) => {
       date_of_birth,
       gender,
       address,
-      role_id
+      id_role
     };
 
     await User.createUser(newUser);
