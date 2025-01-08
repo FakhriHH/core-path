@@ -34,7 +34,6 @@ const getAllClasses = async (req, res) => {
         name_class,
         id_user,
         id_category,
-        id_schedule,
         price,
       });
       res.status(201).json({ message: 'Class created successfully' });
