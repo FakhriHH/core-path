@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
-app.use('/api/schedule', scheduleRoutes);
+app.use('/api/schedule', scheduleRoutes); 
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
