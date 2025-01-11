@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getAllSchedules, getScheduleById, createSchedule, updateSchedule, deleteSchedule } = require('../controllers/scheduleController');
+const scheduleController = require('../controllers/scheduleController');
+const { authenticateToken, authorizeRole } = require('../middlewares/authMiddleware');
 
 
-router.get('/schedule', getAllSchedules);
-router.get('/schedule/:id', getScheduleById);
-router.post('/schedule', createSchedule);
-router.put('/schedule/:id', updateSchedule);
-router.delete('/schedule/:id', deleteSchedule);
+// hanya bisa dilakukan oleh (1) admin
+router.post('/', authenticateToken, authorizeRole([1]), scheduleController.createSchedule);
+router.put('/:id', authenticateToken, authorizeRole([1]), scheduleController.updateSchedule);
+router.delete('/:id', authenticateToken, authorizeRole([1]), scheduleController.deleteSchedule);
+
+// dapat dilakukan oleh publik
+router.get('/', scheduleController.getAllSchedules);
+router.get('/:id', scheduleController.getScheduleById);
 
 module.exports = router;

@@ -23,14 +23,20 @@ const getScheduleById = async (req, res) => {
 
 // create schedule
 const createSchedule = async (req, res) => {
+    const { day, time_slot } = req.body;
+
     try {
-        const schedule = await scheduleModel.createSchedule(req.body);
+        const newSchedule = {
+            day,
+            time_slot
+        };
+
+        const schedule = await scheduleModel.createSchedule(newSchedule);
         res.status(201).json(schedule);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
-
 
 // update schedule
 const updateSchedule = async (req, res) => {
@@ -60,4 +66,4 @@ module.exports = {
     createSchedule,
     updateSchedule,
     deleteSchedule
-};
+}
