@@ -1,0 +1,138 @@
+body {
+    background-color: #eaf5ff;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Header Styles */
+  .header {
+    background: linear-gradient(to right, #80c8ff, #b3e5ff);
+    padding: 20px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  .header img {
+    width: 80px;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+    color: #00395d;
+    margin: 10px 0;
+  }
+  .gradient-section {
+    background: linear-gradient(to right, #e3f2fd, #82b4e8);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    padding: 43px;
+  }
+  .lantern {
+    width: 100px; 
+    margin-right: 10px;
+  }
+  .custom-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1D5671;
+  }
+
+  .login-btn {
+    background-color: #00395d;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .login-btn:hover {
+    background-color: #1a75bb;
+  }
+
+  /* Menu Section */
+  .menu-section {
+    position: relative;
+    left: 18%;
+    text-align: center;
+    margin: 40px 0;
+  }
+
+
+
+  .menu-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .lesson-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .lesson-card img {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  /* Navigation Buttons */
+  .nav-buttons {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .nav-buttons a {
+    display: block;
+    padding: 15px 30px;
+    margin: 10px auto;
+    background: linear-gradient(to right, #1a75bb, #4faef7);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    width: 200px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .nav-buttons a:hover {
+    background: linear-gradient(to right, #4faef7, #1a75bb);
+  }
+
+  /* Footer */
+  footer {
+    background-color: #00395d;
+    color: white;
+    padding: 40px 20px;
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  footer img {
+    width: 60px;
+  }
+
+  footer .footer-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  footer a {
+    font-size: 0.9rem;
+  }
+
+  footer .footer-links a {
+    color: white;
+    text-decoration: none;
+  }
+
+  footer .footer-links a:hover {
+    text-decoration: underline;
+  }
