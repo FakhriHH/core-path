@@ -1,76 +1,149 @@
-const ClassModel = require('../models/classModel');
+const { Classes, CategoryClass, Levels, User } = require('../models/classModel');
+const db = require('../config/knex');
 
-// GET semua kelas
-const getAllClasses = async (req, res) => {
-    try {
-      const classes = await ClassModel.getAllClasses();
-      res.status(200).json(classes);
-    } catch (err) {
-      res.status(500).json({ message: 'Error fetching classes', error: err.message });
+// Create Class Controller
+const createClass = async (req, res) => {
+  const { id_teacher, id_category, id_schedule, id_level, price } = req.body;
+
+  try {
+    if (!id_teacher || !id_category || !id_schedule || !id_level || !price) {
+      return res.status(400).json({ message: "All fields are required." });
     }
-  };
-  
-  // GET kelas berdasarkan ID
-  const getClassById = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const classData = await ClassModel.getClassById(id);
-      if (!classData) {
-        return res.status(404).json({ message: 'Class not found' });
-      }
-      res.status(200).json(classData);
-    } catch (err) {
-      res.status(500).json({ message: 'Error fetching class', error: err.message });
+
+    // Cek apakah yang mengirim adalah admin
+    if (req.user.role !== 1) {  // 1 adalah admin
+      return res.status(403).json({ message: "Access denied." });
     }
-  };
-  
-  // CREATE kelas baru
-  const createClass = async (req, res) => {
-    const { name_class, id_user, id_category, id_schedule, price } = req.body;
-  
-    try {
-      await ClassModel.createClass({
-        name_class,
-        id_user,
-        id_category,
-        price,
-      });
-      res.status(201).json({ message: 'Class created successfully' });
-    } catch (err) {
-      res.status(500).json({ message: 'Error creating class', error: err.message });
+
+    const newClass = {
+      id_teacher,
+      id_category,
+      id_schedule,
+      id_level,
+      price
+    };
+
+    // Insert data ke tabel classes
+    const [id_class] = await db('classes').insert(newClass);
+
+    // Ambil detail dari kelas yang baru dibuat
+    const classDetails = await Classes.getClassById(id_class);
+    const category = await CategoryClass.getCategoryById(classDetails.id_category);
+    const level = await Levels.getLevelById(classDetails.id_level);
+    const teacher = await User.getUserById(classDetails.id_teacher);
+
+    const response = {
+      id_class: classDetails.id_class,
+      category_name: category.name_category,
+      id_schedule: classDetails.id_schedule,
+      name_teacher: teacher.name,
+      level_name: level.level_name,
+      price: classDetails.price
+    };
+
+    res.status(201).json({ message: "Class created successfully", class: response });
+  } catch (err) {
+    res.status(500).json({ message: "Error creating class", error: err.message });
+  }
+};
+
+// Read Classes Controller
+const getClasses = async (req, res) => {
+  try {
+    const classes = await Classes.getAllClasses();
+    res.status(200).json(classes);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving classes", error: err.message });
+  }
+};
+
+// Update Class Controller
+const updateClass = async (req, res) => {
+  const { id_class } = req.params;
+  const { id_teacher, id_category, id_schedule, id_level, price } = req.body;
+
+  try {
+    if (!id_teacher || !id_category || !id_schedule || !id_level || !price) {
+      return res.status(400).json({ message: "All fields are required." });
     }
-  };
-  
-  // UPDATE kelas
-  const updateClass = async (req, res) => {
-    const { id } = req.params;
-    const updateData = req.body;
-  
-    try {
-      const result = await ClassModel.updateClass(id, updateData);
-      if (!result) {
-        return res.status(404).json({ message: 'Class not found' });
-      }
-      res.status(200).json({ message: 'Class updated successfully' });
-    } catch (err) {
-      res.status(500).json({ message: 'Error updating class', error: err.message });
+
+    if (req.user.role !== 1) {
+      return res.status(403).json({ message: "Access denied." });
     }
-  };
-  
-  // DELETE kelas
-  const deleteClass = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const result = await ClassModel.deleteClass(id);
-      if (!result) {
-        return res.status(404).json({ message: 'Class not found' });
-      }
-      res.status(200).json({ message: 'Class deleted successfully' });
-    } catch (err) {
-      res.status(500).json({ message: 'Error deleting class', error: err.message });
+
+    const updatedClass = await Classes.updateClass(id_class, {
+      id_teacher,
+      id_category,
+      id_schedule,
+      id_level,
+      price
+    });
+
+    if (updatedClass) {
+      res.status(200).json({ message: "Class updated successfully" });
+    } else {
+      res.status(404).json({ message: "Class not found" });
     }
-  };
-  
-  module.exports = { getAllClasses, getClassById, createClass, updateClass, deleteClass };
+  } catch (err) {
+    res.status(500).json({ message: "Error updating class", error: err.message });
+  }
+};
+
+// Delete Class Controller
+const deleteClass = async (req, res) => {
+  const { id_class } = req.params;
+
+  try {
+    if (req.user.role !== 1) {
+      return res.status(403).json({ message: "Access denied." });
+    }
+
+    const deletedClass = await Classes.deleteClass(id_class);
+
+    if (deletedClass) {
+      res.status(200).json({ message: "Class deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Class not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting class", error: err.message });
+  }
+};
+
+// Read Classes Controller - getAllDataClassByCategory
+const getClassesByCategory = async (req, res) => {
+  const { categoryId } = req.params;
+
+  try {
+    const classesByCategory = await Classes.getAllDataClassByCategory(categoryId);
+    res.status(200).json(classesByCategory);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving classes by category", error: err.message });
+  }
+};
+
+// Read Classes Controller - getAllDataClassByRole
+const getClassesByRole = async (req, res) => {
+  const { roleId } = req.params;
+
+  try {
+    const classesByRole = await Classes.getAllDataClassByRole(roleId);
+    res.status(200).json(classesByRole);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving classes by role", error: err.message });
+  }
+};
+
+// Read Classes Controller - getAllDataClassByLevel
+const getClassesByLevel = async (req, res) => {
+  const { levelId } = req.params;
+
+  try {
+    const classesByLevel = await Classes.getAllDataClassByLevel(levelId);
+    res.status(200).json(classesByLevel);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving classes by level", error: err.message });
+  }
+};
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel };
