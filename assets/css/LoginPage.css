@@ -37,9 +37,28 @@ body {
 }
 
 #left-section .logo {
-  width: 120px;
+  width: 100px;
   margin: 0 auto 1rem auto;
 }
+
+#left-section .logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%; /* Membuat lingkaran */
+  width: 100px; /* Sesuaikan ukuran lingkaran */
+  height: 100px; /* Sesuaikan ukuran lingkaran */
+  padding: 10px; /* Jarak antara logo dan lingkaran */
+  margin: 0 auto; /* Memastikan container berada di tengah secara horizontal */
+}
+
+.logo {
+  width: 100%; /* Membuat logo memenuhi lingkaran */
+  height: auto;
+  border-radius: 50%; /* Membuat logo tetap berbentuk bulat jika logo berbentuk kotak */
+}
+
 
 #left-section h1 {
   font-size: 28px;
@@ -53,7 +72,7 @@ body {
 #left-section {
   background-image: 
     linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.85)), /* Overlay transparan */
-    url('IMG/wallpaper.png'); /* Gambar background */
+    url('/assets/IMG/wallpaper.png'); /* Gambar background */
   background-size: cover;
   background-position: center;
 }
@@ -94,20 +113,35 @@ form input {
   border-radius: 8px;
 }
 
-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #0d3b66; /* Warna biru gelap */
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 15px;
 }
 
-form button:hover {
-  background-color: #08425d; /* Biru lebih gelap */
+.forgot-password a {
+  color: #2B547A;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2B547A;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1D3E56;
 }
 
 p {
