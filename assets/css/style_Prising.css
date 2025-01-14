@@ -1,0 +1,82 @@
+body {
+    background-color: #eaf5ff;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Header Styles */
+  .header {
+    background: linear-gradient(to right, #80c8ff, #b3e5ff);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header img {
+    height: 50px;
+  }
+
+  .header .header-title {
+    font-size: 1.5rem;
+    color: #00395d;
+    font-weight: bold;
+    margin-left: 15px;
+  }
+
+  .header .login-btn {
+    background: transparent;
+    border: 2px solid #1D5671;
+    border-radius: 20px;
+    color: #1D5671;
+    padding: 5px 15px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .header .login-btn:hover {
+    background: #1D5671;
+    color: #ffffff;
+  }
+      .pricing-header {
+          background-color: #FFFCA8; /* Warna kuning muda */
+          border-radius: 10px;
+      }
+      .pricing-text {
+          background-color: #FFFCA8; /* Latar teks pricing */
+          border-radius: 10px;
+      }
+      .bank-details {
+          background-color: #FFFCA8; /* Latar kuning */
+          border-radius: 10px;
+          padding: 20px;
+      }
+      .bank-name {
+          color: #1D5671; /* Warna biru gelap */
+          font-weight: bold;
+      }
+      footer {
+          background-color: #1D5671; /* Footer biru gelap */
+          color: white;
+          border-top-left-radius: 30px;
+          border-top-right-radius: 30px;
+          padding-top: 20px;
+      }
+      .btn-primary {
+          background-color: #1D5671;
+          border: none;
+      }
+      .btn-primary:hover {
+          background-color: #174454;
+      }
+      .highlight-text {
+          color: red;
+          text-decoration: line-through;
+      }
+      .success-text {
+          color: #1D5671;
+          font-weight: bold;
+      }
+      .footer-section h5 {
+          font-weight: bold;
+      }
