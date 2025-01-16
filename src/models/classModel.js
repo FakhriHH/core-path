@@ -53,6 +53,9 @@ class CategoryClass {
   static async getCategoryById(id_category) {
     return db('category_class').where({ id_category }).first();
   }
+  static async getAllDataCategory() {
+    return db('category_class').select('*');
+  }
 }
 
 class Levels {
@@ -70,5 +73,5 @@ class User {
   }
 }
 
-module.exports = { Classes, CategoryClass, Levels, User, Levels };
+module.exports = { Classes, CategoryClass, Levels, User };
 
