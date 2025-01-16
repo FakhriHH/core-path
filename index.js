@@ -17,8 +17,17 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'assets', 'SignUp.html'));
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'SignUp.html'));
 });
+
+app.get('/forgot', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'forgot-password.html'));
+});
+
+app.get('/reset', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'reset-password.html'));
+});
+
 
 app.use('/api/auth', authRoutes);
 

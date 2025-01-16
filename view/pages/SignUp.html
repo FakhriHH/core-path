@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="SignUp.css">
+    <link rel="stylesheet" href="/assets/css/SignUp.css">
 </head>
 <body>
     <div class="signup-container">
@@ -20,7 +20,7 @@
         <!-- Right Section -->
         <div class="right-section">
             <h2>Register First!</h2>
-            <form action="/register" method="POST" class="signup-form">
+            <form action="/api/auth/signup" method="POST" class="signup-form">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullName" required>
