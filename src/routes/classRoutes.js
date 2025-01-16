@@ -12,6 +12,6 @@ router.delete('/delete/:id_class', authenticateToken, authorizeRole([1]),  delet
 router.get('/category/:categoryId', authenticateToken, getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', authenticateToken, getClassesByLevel);
-router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);
+router.get('/getAllLevel', getAllDataLevel);
 
 module.exports = router;

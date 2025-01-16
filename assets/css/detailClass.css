@@ -83,3 +83,29 @@ html {
   border-radius: 10px;
   color: #2f8eba;
 }
+/* Default style for all levels */
+.card-body h5 {
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Specific styles for different levels */
+.level-basic {
+  background-color: #4caf50; /* Green */
+}
+
+.level-intermediate {
+  background-color: #2196f3; /* Blue */
+}
+
+.level-advanced {
+  background-color: #ff9800; /* Orange */
+}
+
+.level-expert {
+  background-color: #f44336; /* Red */
+}

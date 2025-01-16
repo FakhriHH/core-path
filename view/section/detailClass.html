@@ -69,9 +69,7 @@
               class="text-decoration-none card text-white text-center level-card-custom"
               id="level1Card"
             >
-              <div class="card-body" id="level1CardBody">
-                <h5 class="mb-0">Level 1</h5>
-              </div>
+              <div class="card-body" id="level1CardBody"></div>
             </a>
           </div>
         </div>
@@ -213,23 +211,27 @@
 
     <script>
       async function loadSidebarContent() {
-        const sidebar = document.getElementById("sidebarContent");
+        const level1CardBody = document.querySelector("#level1CardBody");
 
         try {
           const response = await fetch("/api/classes/getAllLevel");
           if (!response.ok) throw new Error("Failed to fetch data");
           const data = await response.json();
-          sidebar.innerHTML = "";
 
-          data.forEach((item) => {
-            const div = document.createElement("div");
-            div.className = `p-2 ${item.class}`;
-            div.textContent = item.content;
-            sidebar.appendChild(div);
+          // Kosongkan kontainer sebelum menambahkan konten baru
+          level1CardBody.innerHTML = "";
+
+          data.levels.forEach((item) => {
+            const h5 = document.createElement("h5");
+            h5.className = `mb-0 ${item.level_name}`;
+            h5.textContent = item.level_name;
+
+            level1CardBody.appendChild(h5);
           });
         } catch (error) {
           console.error(error);
-          sidebar.innerHTML =
+          const sidebarContent = document.getElementById("sidebarContent");
+          sidebarContent.innerHTML =
             '<p class="text-danger">Failed to load sidebar content.</p>';
         }
       }
