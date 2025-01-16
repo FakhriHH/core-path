@@ -1,18 +1,33 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kreon:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Kreon:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>detail class</title>
     <style>
       body,
       html {
         margin: 0;
         padding: 0;
-        font-family: 'kreon', serif;
-        color: #1D5671;
+        font-family: "kreon", serif;
+        color: #1d5671;
       }
       .text-color {
-        color: #1D5671;
+        color: #1d5671;
+      }
+      .nav {
+        border-bottom: 1px solid #1d5671;
       }
       .header {
         display: flex;
@@ -20,13 +35,6 @@
         height: 180px;
         padding-left: 80px;
         background: linear-gradient(to right, #fcfeff, #619ec3);
-      }
-      .search-input {
-        width: 48vw;
-        height: 60px;
-        padding-left: 10px;
-        border: 1px solid #619dc362;
-        border-radius: 30px;
       }
       .ml-6 {
         margin-left: 100px !important;
@@ -37,12 +45,29 @@
         border-bottom: 2px solid black;
       }
       .gradient {
-        background: #F6FB97;
+        background: #f6fb97;
       }
       .btn-custom {
-        background-color: #1D5671;
-        color: white;
+        background-color: #1d5671;
+        color: #ffffff;
         border-radius: 20px;
+      }
+      .btn-custom:hover {
+        background-color: #ffffff;
+        color: #1d5671;
+        border-radius: 20px;
+      }
+      .level-card-custom {
+        border-radius: 10px;
+        background: linear-gradient(to bottom, #1f9fdb, #7dd4d3);
+        text-decoration: none;
+        border: none;
+      }
+      .level-card-custom:hover {
+        border-radius: 10px;
+        background: linear-gradient(to bottom, #7dd4d3, #1f9fdb);
+        text-decoration: none;
+        border: none;
       }
       .card-custom {
         border-radius: 10px;
@@ -51,7 +76,7 @@
         background-color: #2a5d71;
         color: white;
         padding: 70px 200px;
-        border-radius: 50% 50% 0 0 / 7% 7%;
+        clip-path: polygon(50% 0%, 100% 7%, 100% 100%, 0% 100%, 0% 7%);
       }
       .footer-logo {
         background-color: white;
@@ -67,14 +92,27 @@
       .fL {
         width: 30%;
       }
+      .mainRow {
+        gap: 150px;
+      }
+      .levelTitle {
+        background: #aedbf5;
+        padding: 5px;
+        border-radius: 10px;
+        color: #2f8eba;
+      }
     </style>
   </head>
   <body class="m-0">
-    <nav class="navbar navbar-expand-lg px-5 bg-body-tertiary" id="navbar">
+    <nav class="navbar navbar-expand-lg px-5 nav bg-body-tertiary" id="navbar">
       <div class="container-fluid px-5">
-        <a class="text-decoration-none text-color" href="/view/home.html" id="navbarBrand">
+        <a
+          class="text-decoration-none text-color"
+          href="/view/home.html"
+          id="navbarBrand"
+        >
           <img
-            src="/assets/image/Logo.png"
+            src="/assets/image/CorePathLogo.png"
             alt=""
             width="49"
             height="49"
@@ -84,92 +122,118 @@
         </a>
         <div id="loginButtonContainer">
           <a href="logIn.html">
-            <button
-              type="button"
-              class="btn btn-custom" id="loginButton">
+            <button type="button" class="btn btn-custom" id="loginButton">
               LogIn/SignIn
             </button>
           </a>
         </div>
       </div>
     </nav>
-    <div class="header top-30" id="header">
+    <div class="header" id="header">
       <img
         src="/assets/image/Hiasan.png"
         alt=""
-        class="top-0 d-inline-block"
+        class="d-inline-block"
         width="170"
-        height="170"
+        height="180"
         id="headerImage"
       />
-      <h5 id="headerText">Hi, mau belajar apa hari ini?</h5>
+      <h5 id="headerText">Hi<span></span>, mau belajar apa hari ini?</h5>
     </div>
     <br /><br /><br /><br />
     <div class="container" id="mainContainer">
-      <div class="row justify-content-around" id="mainRow">
+      <div class="row justify-content-left mainRow ps-5" id="mainRow">
         <div class="col-2" id="sidebar">
           <div class="d-flex flex-column gap-3" id="sidebarContent">
-            <h6 class="text-center mt-4" id="bookingTitle">Booking Placement Test</h6>
-            <a href="#" class="" id="level1Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level1Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 1</h5>
-                </div>
+            <h6 class="text-center mt-4 levelTitle" id="bookingTitle">
+              Booking Placement Test
+            </h6>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level1Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0">Level 1</h5>
               </div>
             </a>
-            <div class="col mb-4" id="bookingCard" style="display: none;">
-              <div class="col-11 justify-content-center">
-                <div class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary " id="bookingCard1">
+            <div class="col mb-2" id="bookingCard" style="display: none">
+              <div class="col-12 justify-content-center">
+                <div
+                  class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary"
+                  id="bookingCard1"
+                >
                   <div class="">
                     <h6 class="card-title mb-0">Senin & Rabu</h6>
                     <p class="card-text fs-6">13.00-15.00 WIB</p>
-                    
                   </div>
-                  <a href="payment.html" class="btn-custom btn-danger bg-white text-danger text-center text-decoration-none" id="bookingButton1">Booking</a>
+                  <a
+                    href="payment.html"
+                    class="btn-custom text-center text-decoration-none"
+                    id="bookingButton1"
+                    >Booking</a
+                  >
                 </div>
-                <div class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary " id="bookingCard1">
+                <div
+                  class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary"
+                  id="bookingCard1"
+                >
                   <div class="">
                     <h6 class="card-title mb-0">Senin & Rabu</h6>
                     <p class="card-text fs-6">13.00-15.00 WIB</p>
-                    
                   </div>
-                  <a href="payment.html" class="btn-custom btn-danger bg-white text-danger text-center text-decoration-none" id="bookingButton1">Booking</a>
+                  <a
+                    href="payment.html"
+                    class="btn-custom text-center text-decoration-none"
+                    id="bookingButton1"
+                    >Booking</a
+                  >
                 </div>
               </div>
             </div>
-            <a href="#" class="" id="level2Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level2Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 2</h5>
-                </div>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level2Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0 card-title">Level 2</h5>
               </div>
             </a>
-            <a href="#" class="" id="level3Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level3Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 3</h5>
-                </div>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level3Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0 card-title">Level 3</h5>
               </div>
             </a>
-            <a href="#" class="" id="level4Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level4Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 4</h5>
-                </div>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level4Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0 card-title">Level 4</h5>
               </div>
             </a>
-            <a href="#" class="" id="level5Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level5Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 5</h5>
-                </div>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level5Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0 card-title">Level 5</h5>
               </div>
             </a>
-            <a href="#" class="" id="level6Button">
-              <div class="card bg-primary text-white text-center card-custom" id="level6Card">
-                <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Level 6</h5>
-                </div>
+            <a
+              href="#"
+              class="text-decoration-none card text-white text-center level-card-custom"
+              id="level6Card"
+            >
+              <div class="card-body">
+                <h5 class="mb-0 card-title">Level 6</h5>
               </div>
             </a>
           </div>
@@ -177,7 +241,7 @@
         <div class="col-7" id="content">
           <div class="d-flex align-content-right" id="contentHeader">
             <img
-              src="/assets/image/Group1.png"
+              src="/assets/image/QuranicLogo.png"
               alt=""
               width="110"
               height="110"
@@ -190,28 +254,39 @@
           </div>
           <br /><br /><br />
           <h6 id="shortDescriptionTitle">Deskripsi Singkat Materi</h6>
-          <br>
-          <p class="mb-0 text-center" id="shortDescription">Mengukur Akhlak Mulia melalui Pembelajaran Quran yang Terstruktur</p>
-          <br>
-          <p id="programDescription">Program Quranic Lesson dirancang untuk membantu anak-anak dan remaja memahami Al-Qur'an secara mendalam. Dengan pendekatan yang interaktif dan sistematis, siswa belajar:</p>
+          <br />
+          <p class="mb-0 text-center" id="shortDescription">
+            Mengukur Akhlak Mulia melalui Pembelajaran Quran yang Terstruktur
+          </p>
+          <br />
+          <p id="programDescription">
+            Program Quranic Lesson dirancang untuk membantu anak-anak dan remaja
+            memahami Al-Qur'an secara mendalam. Dengan pendekatan yang
+            interaktif dan sistematis, siswa belajar:
+          </p>
           <ol id="programList">
             <li>Membaca Al-Qur'an dengan tajwid yang benar.</li>
             <li>Menghafal ayat-ayat suci sesuai usia dan kemampuan.</li>
             <li>Memahami makna dan pesan dalam Al-Qur'an.</li>
-            <li>Kelas kami menawarkan suasana yang penuh kasih dan bimbingan yang ramah, 
-              membantu siswa memperkuat ikatan spiritual dan menerapkan nilai-nilai Quran dalam kehidupan sehari-hari.</li>
+            <li>
+              Kelas kami menawarkan suasana yang penuh kasih dan bimbingan yang
+              ramah, membantu siswa memperkuat ikatan spiritual dan menerapkan
+              nilai-nilai Quran dalam kehidupan sehari-hari.
+            </li>
           </ol>
         </div>
-      </div>     
+      </div>
     </div>
-    <br><br><br><br>
+    <br /><br /><br /><br />
     <footer class="footer-custom" id="footer">
-      <div class="d-flex flex-row justify-content-between align-items-start flex-wrap text-start" id="footerContent">
-        <!-- Left Section -->
+      <div
+        class="d-flex flex-row justify-content-between align-items-start text-start"
+        id="footerContent"
+      >
         <div class="me-3 fL" id="footerLeft">
           <div class="bg-white text-color box px-2" href="#" id="navbarBrand">
             <img
-              src="/assets/image/Logo.png"
+              src="/assets/image/CorePathLogo.png"
               alt=""
               width="49"
               height="49"
@@ -219,45 +294,93 @@
             />
             Core Path
           </div>
-          <br>
-          <p class="mb-4" id="footerTitle">Why Choose Core Path for Your Child's Journey?</p>
-          <p id="footerDescription">At Core Path, we believe that every child deserves a meaningful education tailored to their needs, values, and aspirations.</p>
+          <br />
+          <p class="mb-4" id="footerTitle">
+            Why Choose Core Path for Your Child's Journey?
+          </p>
+          <p id="footerDescription">
+            At Core Path, we believe that every child deserves a meaningful
+            education tailored to their needs, values, and aspirations.
+          </p>
         </div>
-        
+
         <div class="d-flex flex-row gap-5 mt-4">
-          <!-- Center Section -->
-        <div class="me-3" id="footerCenter">
-          <h5 id="footerMenuTitle">Menu</h5>
-          <br>
-          <ul class="list-unstyled" id="footerMenu">
-            <li><a href="#" class="text-white text-decoration-none" id="footerMenuItem1"><p>Home</p></a></li>
-            <li><a href="#" class="text-white text-decoration-none" id="footerMenuItem2"><p>Course</p></a></li>
-            <li><a href="#" class="text-white text-decoration-none" id="footerMenuItem3"><p>About Us</p></a></li>
-          </ul>
-        </div>
-    
-        <!-- Right Section -->
-        <div class="" id="footerRight">
-          <h5 id="footerContactTitle">Hubungi kami</h5>
-          <br>
-          <p id="footerEmail">Email: <a href="mailto:corepath.info@gmail.com" class="text-white text-decoration-none" id="footerEmailLink">corepath.info@gmail.com</a></p>
-          <p id="footerPhone">Phone: <a href="tel:+6281234567890" class="text-white text-decoration-none" id="footerPhoneLink">+62 812-3456-7890</a></p>
-          <p id="footerAddress">Address: Komplek A, Jalan B, Kecamatan C<br>Kabupaten D - Provinsi E</p>
-        </div>
+          <div class="me-3" id="footerCenter">
+            <h5 id="footerMenuTitle">Menu</h5>
+            <br />
+            <ul class="list-unstyled" id="footerMenu">
+              <li>
+                <a
+                  href="../home.html"
+                  class="text-white text-decoration-none"
+                  id="footerMenuItem1"
+                  ><p>Home</p></a
+                >
+              </li>
+              <li>
+                <a
+                  href="myCourse.html"
+                  class="text-white text-decoration-none"
+                  id="footerMenuItem2"
+                  ><p>Course</p></a
+                >
+              </li>
+              <li>
+                <a
+                  href="aboutUs.html"
+                  class="text-white text-decoration-none"
+                  id="footerMenuItem3"
+                  ><p>About Us</p></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="" id="footerRight">
+            <h5 id="footerContactTitle">Hubungi kami</h5>
+            <br />
+            <p id="footerEmail">
+              Email:
+              <a
+                href="corepath.info@gmail.com"
+                class="text-white text-decoration-none"
+                id="footerEmailLink"
+                >corepath.info@gmail.com</a
+              >
+            </p>
+            <p id="footerPhone">
+              Phone:
+              <a
+                href="tel:+6281234567890"
+                class="text-white text-decoration-none"
+                id="footerPhoneLink"
+                >+62 812-3456-7890</a
+              >
+            </p>
+            <p id="footerAddress">
+              Address: Komplek A, Jalan B, Kecamatan C<br />Kabupaten D -
+              Provinsi E
+            </p>
+          </div>
         </div>
       </div>
-    </footer> 
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
-
-      document.getElementById('level1Button').addEventListener('click', function(event) {
-        event.preventDefault();
-        var bookingCard = document.getElementById('bookingCard');
-        bookingCard.style.display = bookingCard.style.display === 'none' ? 'block' : 'none';
-      });
-
+      document
+        .getElementById("level1Card")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          var bookingCard = document.getElementById("bookingCard");
+          bookingCard.style.display =
+            bookingCard.style.display === "none" ? "block" : "none";
+        });
     </script>
   </body>
 </html>
