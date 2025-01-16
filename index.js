@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
-const path = require("path");
+const path = require('path');
+
 
 dotenv.config();
 
@@ -13,6 +14,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+app.get('/core-path', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'section', 'detailClass.html'));
+});
+
+app.get('/aboutUs.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'section', 'aboutUs.html'));
+});
 
 // Routing
 app.get('/login', (req, res) => {

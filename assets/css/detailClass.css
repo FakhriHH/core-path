@@ -1,0 +1,111 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "kreon", serif;
+  color: #1d5671;
+}
+.text-color {
+  color: #1d5671;
+}
+.nav {
+  border-bottom: 1px solid #1d5671;
+}
+.header {
+  display: flex;
+  align-items: center;
+  height: 180px;
+  padding-left: 80px;
+  background: linear-gradient(to right, #fcfeff, #619ec3);
+}
+.ml-6 {
+  margin-left: 100px !important;
+  margin-right: 0px !important;
+}
+.class-title {
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+.gradient {
+  background: #f6fb97;
+}
+.btn-custom {
+  background-color: #1d5671;
+  color: #ffffff;
+  border-radius: 20px;
+}
+.btn-custom:hover {
+  background-color: #ffffff;
+  color: #1d5671;
+  border-radius: 20px;
+}
+.level-card-custom {
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #1f9fdb, #7dd4d3);
+  text-decoration: none;
+  border: none;
+}
+.level-card-custom:hover {
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #7dd4d3, #1f9fdb);
+  text-decoration: none;
+  border: none;
+}
+.card-custom {
+  border-radius: 10px;
+}
+.footer-custom {
+  background-color: #2a5d71;
+  color: white;
+  padding: 70px 200px;
+  clip-path: polygon(50% 0%, 100% 7%, 100% 100%, 0% 100%, 0% 7%);
+}
+.footer-logo {
+  background-color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.box {
+  width: fit-content;
+  border-radius: 10px;
+}
+.fL {
+  width: 30%;
+}
+.mainRow {
+  gap: 150px;
+}
+.levelTitle {
+  background: #aedbf5;
+  padding: 5px;
+  border-radius: 10px;
+  color: #2f8eba;
+}
+/* Default style for all levels */
+.card-body h5 {
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Specific styles for different levels */
+.level-basic {
+  background-color: #4caf50; /* Green */
+}
+
+.level-intermediate {
+  background-color: #2196f3; /* Blue */
+}
+
+.level-advanced {
+  background-color: #ff9800; /* Orange */
+}
+
+.level-expert {
+  background-color: #f44336; /* Red */
+}

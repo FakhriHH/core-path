@@ -1,0 +1,99 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "kreon", serif;
+  color: #1d5671;
+}
+.text-color {
+  color: #1d5671;
+}
+.nav {
+  border-bottom: 1px solid #1d5671;
+}
+.btn-custom {
+  background-color: #1d5671;
+  color: #ffffff;
+  border-radius: 20px;
+}
+.btn-custom:hover {
+  background-color: #ffffff;
+  color: #1d5671;
+  border-radius: 20px;
+}
+.trdecoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+.tldecoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.title {
+  margin-bottom: 30px;
+  padding: 20px;
+  padding-left: 75px;
+  padding-right: 75px;
+  background: #2578a7;
+  color: white;
+  border-radius: 10px;
+}
+.content {
+  width: 1150px;
+  padding: 30px;
+  padding-left: 50px;
+  padding-right: 100px;
+  background: #2578a7;
+  color: white;
+  border-radius: 10px;
+}
+.scontent {
+  width: 1150px;
+  padding: 30px;
+  padding-left: 80px;
+  padding-right: 100px;
+  background: #2578a7;
+  color: white;
+  border-radius: 10px;
+}
+ul {
+  list-style-type: disc;
+}
+h4 {
+  text-decoration: underline;
+}
+li::marker {
+  font-size: 25px;
+}
+#fcontent h5 {
+  margin-bottom: 0px;
+  padding-left: 33px;
+  padding-right: 40px;
+}
+#scontent p {
+  margin-bottom: 0px;
+}
+.footer-custom {
+  background-color: #2a5d71;
+  color: white;
+  padding: 70px 200px;
+  clip-path: polygon(50% 0%, 100% 7%, 100% 100%, 0% 100%, 0% 7%);
+}
+.footer-logo {
+  background-color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.box {
+  width: fit-content;
+  border-radius: 10px;
+}
+.fL {
+  width: 30%;
+}

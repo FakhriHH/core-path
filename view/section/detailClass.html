@@ -14,94 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=Kreon:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../../assets/css/detailClass.css" />
     <title>detail class</title>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        font-family: "kreon", serif;
-        color: #1d5671;
-      }
-      .text-color {
-        color: #1d5671;
-      }
-      .nav {
-        border-bottom: 1px solid #1d5671;
-      }
-      .header {
-        display: flex;
-        align-items: center;
-        height: 180px;
-        padding-left: 80px;
-        background: linear-gradient(to right, #fcfeff, #619ec3);
-      }
-      .ml-6 {
-        margin-left: 100px !important;
-        margin-right: 0px !important;
-      }
-      .class-title {
-        padding-bottom: 10px;
-        border-bottom: 2px solid black;
-      }
-      .gradient {
-        background: #f6fb97;
-      }
-      .btn-custom {
-        background-color: #1d5671;
-        color: #ffffff;
-        border-radius: 20px;
-      }
-      .btn-custom:hover {
-        background-color: #ffffff;
-        color: #1d5671;
-        border-radius: 20px;
-      }
-      .level-card-custom {
-        border-radius: 10px;
-        background: linear-gradient(to bottom, #1f9fdb, #7dd4d3);
-        text-decoration: none;
-        border: none;
-      }
-      .level-card-custom:hover {
-        border-radius: 10px;
-        background: linear-gradient(to bottom, #7dd4d3, #1f9fdb);
-        text-decoration: none;
-        border: none;
-      }
-      .card-custom {
-        border-radius: 10px;
-      }
-      .footer-custom {
-        background-color: #2a5d71;
-        color: white;
-        padding: 70px 200px;
-        clip-path: polygon(50% 0%, 100% 7%, 100% 100%, 0% 100%, 0% 7%);
-      }
-      .footer-logo {
-        background-color: white;
-        border-radius: 10px;
-        width: 80px;
-        height: 80px;
-        margin-bottom: 10px;
-      }
-      .box {
-        width: fit-content;
-        border-radius: 10px;
-      }
-      .fL {
-        width: 30%;
-      }
-      .mainRow {
-        gap: 150px;
-      }
-      .levelTitle {
-        background: #aedbf5;
-        padding: 5px;
-        border-radius: 10px;
-        color: #2f8eba;
-      }
-    </style>
   </head>
   <body class="m-0">
     <nav class="navbar navbar-expand-lg px-5 nav bg-body-tertiary" id="navbar">
@@ -129,6 +43,7 @@
         </div>
       </div>
     </nav>
+
     <div class="header" id="header">
       <img
         src="/assets/image/Hiasan.png"
@@ -141,6 +56,7 @@
       <h5 id="headerText">Hi<span></span>, mau belajar apa hari ini?</h5>
     </div>
     <br /><br /><br /><br />
+
     <div class="container" id="mainContainer">
       <div class="row justify-content-left mainRow ps-5" id="mainRow">
         <div class="col-2" id="sidebar">
@@ -153,91 +69,11 @@
               class="text-decoration-none card text-white text-center level-card-custom"
               id="level1Card"
             >
-              <div class="card-body">
-                <h5 class="mb-0">Level 1</h5>
-              </div>
-            </a>
-            <div class="col mb-2" id="bookingCard" style="display: none">
-              <div class="col-12 justify-content-center">
-                <div
-                  class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary"
-                  id="bookingCard1"
-                >
-                  <div class="">
-                    <h6 class="card-title mb-0">Senin & Rabu</h6>
-                    <p class="card-text fs-6">13.00-15.00 WIB</p>
-                  </div>
-                  <a
-                    href="payment.html"
-                    class="btn-custom text-center text-decoration-none"
-                    id="bookingButton1"
-                    >Booking</a
-                  >
-                </div>
-                <div
-                  class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary"
-                  id="bookingCard1"
-                >
-                  <div class="">
-                    <h6 class="card-title mb-0">Senin & Rabu</h6>
-                    <p class="card-text fs-6">13.00-15.00 WIB</p>
-                  </div>
-                  <a
-                    href="payment.html"
-                    class="btn-custom text-center text-decoration-none"
-                    id="bookingButton1"
-                    >Booking</a
-                  >
-                </div>
-              </div>
-            </div>
-            <a
-              href="#"
-              class="text-decoration-none card text-white text-center level-card-custom"
-              id="level2Card"
-            >
-              <div class="card-body">
-                <h5 class="mb-0 card-title">Level 2</h5>
-              </div>
-            </a>
-            <a
-              href="#"
-              class="text-decoration-none card text-white text-center level-card-custom"
-              id="level3Card"
-            >
-              <div class="card-body">
-                <h5 class="mb-0 card-title">Level 3</h5>
-              </div>
-            </a>
-            <a
-              href="#"
-              class="text-decoration-none card text-white text-center level-card-custom"
-              id="level4Card"
-            >
-              <div class="card-body">
-                <h5 class="mb-0 card-title">Level 4</h5>
-              </div>
-            </a>
-            <a
-              href="#"
-              class="text-decoration-none card text-white text-center level-card-custom"
-              id="level5Card"
-            >
-              <div class="card-body">
-                <h5 class="mb-0 card-title">Level 5</h5>
-              </div>
-            </a>
-            <a
-              href="#"
-              class="text-decoration-none card text-white text-center level-card-custom"
-              id="level6Card"
-            >
-              <div class="card-body">
-                <h5 class="mb-0 card-title">Level 6</h5>
-              </div>
+              <div class="card-body" id="level1CardBody"></div>
             </a>
           </div>
         </div>
+
         <div class="col-7" id="content">
           <div class="d-flex align-content-right" id="contentHeader">
             <img
@@ -278,6 +114,7 @@
       </div>
     </div>
     <br /><br /><br /><br />
+
     <footer class="footer-custom" id="footer">
       <div
         class="d-flex flex-row justify-content-between align-items-start text-start"
@@ -373,14 +210,33 @@
     ></script>
 
     <script>
-      document
-        .getElementById("level1Card")
-        .addEventListener("click", function (event) {
-          event.preventDefault();
-          var bookingCard = document.getElementById("bookingCard");
-          bookingCard.style.display =
-            bookingCard.style.display === "none" ? "block" : "none";
-        });
+      async function loadSidebarContent() {
+        const level1CardBody = document.querySelector("#level1CardBody");
+
+        try {
+          const response = await fetch("/api/classes/getAllLevel");
+          if (!response.ok) throw new Error("Failed to fetch data");
+          const data = await response.json();
+
+          // Kosongkan kontainer sebelum menambahkan konten baru
+          level1CardBody.innerHTML = "";
+
+          data.levels.forEach((item) => {
+            const h5 = document.createElement("h5");
+            h5.className = `mb-0 ${item.level_name}`;
+            h5.textContent = item.level_name;
+
+            level1CardBody.appendChild(h5);
+          });
+        } catch (error) {
+          console.error(error);
+          const sidebarContent = document.getElementById("sidebarContent");
+          sidebarContent.innerHTML =
+            '<p class="text-danger">Failed to load sidebar content.</p>';
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadSidebarContent);
     </script>
   </body>
 </html>

@@ -73,5 +73,5 @@ class User {
   }
 }
 
-module.exports = { Classes, CategoryClass, Levels, User };
+module.exports = { Classes, CategoryClass, Levels, User, Levels };
 
