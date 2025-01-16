@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher</title>
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
+
+  <!-- Bootstrap CDN CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Font Awesome CDN CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  
+  <!-- SweetAlert CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+  <section class="background-secondary">
+
+    <nav class="navbar navbar-expand-lg position-sticky">
+      <div class="container">
+        <div>
+          <img src="../../assets/image/Logo.png" class="logo-navbar" alt="logo">
+          <a class="navbar-brand" href="#">Core Path</a>
+        </div>
+
+        <div id="menu-admin-button" class="menu-user d-flex justify-content-end align-items-center gap-3">
+          <p class="fw-bold mb-0">Hallo, Teacher</p>
+          <div class="icon-user">
+            <i class="fa-regular fa-user"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu-navbar position-relative">
+      <div id="menu-admin" class="menu-admin z-3 border p-3 d-none">
+        <a href="#" class="w-100 d-flex align-items-center justify-content-start text-start gap-3 border-bottom pb-3">
+          <div class="icon-user">
+            <i class="fa-regular fa-user"></i>
+          </div>
+          <div>
+            <span>Profile</span>
+          </div>
+        </a>
+        <button class="btn btn-logout px-5">Logout</button>
+      </div>
+    </div>
+
+    <section class="d-grid hero">
+      <header class="container m-auto d-grid gap-2">
+        <h1>Selamat Datang Teacher!</h1>
+        <h2>What do you want to teach today?</h2>
+      </header>
+    </section>
+
+    <section class="my-class container my-5">
+      <header>
+        <h3 class="pb-2">My Class</h3>
+      </header>
+
+      <div class="opt-btn-my-class my-5">
+        <button id="btn-quranic-lesson" class="btn-my-class">Quranic Lesson</button>
+        <button id="btn-english-lesson" class="btn-my-class">English Lesson</button>
+      </div>
+    </section>
+
+    <section class="upcoming-class container my-5">
+      <header>
+        <h3 class="pb-2">Upcoming Class</h3>
+      </header>
+      <div id="card-container-quranic-lesson" class="card-container my-5 justify-content-center d-none">
+        <div class="card p-3 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Senin & Rabu</h5>
+            <p class="mb-0">Pukul 13.00 - 14.00 WIB</p>
+            <p class="mb-0">Quranic Lesson (Level 1)</p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-going-to-class rounded-5 mt-3">
+                Access Class
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card p-3 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Kamis & Jumat</h5>
+            <p class="mb-0">Pukul 13.00 - 14.00 WIB</p>
+            <p class="mb-0">Quranic Lesson (Level 1)</p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-going-to-class rounded-5 mt-3">
+                Access Class
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="card-container-english-lesson" class="card-container my-5 justify-content-center d-none">
+        <div class="card p-3 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Selasa & Sabtu</h5>
+            <p class="mb-0">Pukul 13.00 - 14.00 WIB</p>
+            <p class="mb-0">English Lesson (Level 1)</p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-going-to-class rounded-5 mt-3">
+                Access Class
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card p-3 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Selasa & Sabtu</h5>
+            <p class="mb-0">Pukul 13.00 - 14.00 WIB</p>
+            <p class="mb-0">English Lesson (Level 1)</p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-going-to-class rounded-5 mt-3">
+                Access Class
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="card-container-default" class="card-container my-5 justify-content-center">
+        <div class="p-3 rounded-4">
+          <h3>Silahkan Pilih Kelas Terlebih Dahulu</h3>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-5">
+      <div class="container container-footer align-items-center">
+        <div class="description-footer d-flex flex-column gap-4">
+          <div class="logo d-flex gap-2 align-items-center bg-white rounded-4">
+            <img src="../../assets/image/Logo.png" class="logo-navbar" alt="logo">
+            <span>Core Path</span>
+          </div>
+
+          <div class="d-flex flex-column">
+            <p class="fw-bold">Why Choose Core Path for Your Child's Journey?</p>
+            <p class="mb-0">At Core Path, we believe that every child deserves a meaningful education tailored to their
+              needs, values, and aspirations.</p>
+          </div>
+        </div>
+        <div class="container-menu-footer">
+          <div class="menu">
+            <h4 class="pb-3">Menu</h4>
+            <div class="d-flex flex-column gap-3">
+              <a href="#">Home</a>
+              <a href="#">Course</a>
+              <a href="#">About Us</a>
+            </div>
+          </div>
+          <div class="hubungi-kami">
+            <h4 class="pb-3">Hubungi Kami</h4>
+            <div class="d-flex flex-column gap-3">
+              <span>corepath.info@gmail.com</span>
+              <span>+62 812-3456-7890</span>
+              <span>Komplek A, Jalan B, Kecamatan C
+                Kabupaten D - Provinsi E</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </section>
+
+  <script>
+    const btnQuranicLesson = document.getElementById('btn-quranic-lesson');
+    const btnEnglishLesson = document.getElementById('btn-english-lesson');
+    const cardContainerQuranicLesson = document.getElementById('card-container-quranic-lesson');
+    const cardContainerEnglishLesson = document.getElementById('card-container-english-lesson');
+    const cardContainerDefault = document.getElementById('card-container-default');
+
+    btnQuranicLesson.addEventListener('click', () => {
+      cardContainerDefault.classList.add('d-none');
+      btnEnglishLesson.classList.add('btn-my-class');
+      btnQuranicLesson.classList.remove('btn-my-class');
+      btnQuranicLesson.classList.add('btn-active');
+      cardContainerQuranicLesson.classList.remove('d-none');
+      cardContainerEnglishLesson.classList.add('d-none');
+      });
+
+    btnEnglishLesson.addEventListener('click', () => {
+      cardContainerDefault.classList.add('d-none');
+      btnQuranicLesson.classList.add('btn-my-class');
+      btnEnglishLesson.classList.remove('btn-my-class');
+      btnEnglishLesson.classList.add('btn-active');
+
+      cardContainerQuranicLesson.classList.add('d-none');
+      cardContainerEnglishLesson.classList.remove('d-none');
+    });
+
+    const menuAdmin = document.getElementById('menu-admin');
+    const openMenuButton = document.getElementById('menu-admin-button');
+
+    openMenuButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuAdmin.classList.toggle('d-none');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuAdmin.contains(e.target) && !openMenuButton.contains(e.target)) {
+        menuAdmin.classList.add('d-none');
+      }
+    });
+  </script>
+
+
+  <!-- Bootstrap CDN JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
