@@ -52,16 +52,6 @@ const getClasses = async (req, res) => {
   }
 };
 
-const getAllDataLevel = async (req, res) => {
-  try {
-    const levels = await db('levels').select('*'); 
-    res.status(200).json({ levels });
-  } catch (error) {
-    console.error('Error in getAllDataLevel:', error.message); 
-    res.status(500).json({ error: 'Failed to fetch levels data' });
-  }
-};
-
 // Update Class Controller
 const updateClass = async (req, res) => {
   const { id_class } = req.params;
@@ -144,4 +134,24 @@ const getClassesByLevel = async (req, res) => {
   }
 };
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel };
+const getAllDataLevel = async (req, res) => {
+  try {
+    const levels = await db('levels').select('*'); 
+    res.status(200).json({ levels });
+  } catch (error) {
+    console.error('Error in getAllDataLevel:', error.message); 
+    res.status(500).json({ error: 'Failed to fetch levels data' });
+  }
+};
+
+const getAllDataCategory = async (req, res) => {
+  try {
+    const category = await db('category_class').select('*'); 
+    res.status(200).json({ category });
+  } catch (error) {
+    console.error('Error in getAllDataCategory:', error.message); 
+    res.status(500).json({ error: 'Failed to fetch class category data' });
+  }
+};
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory };
