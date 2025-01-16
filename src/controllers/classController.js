@@ -10,11 +10,6 @@ const createClass = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Cek apakah yang mengirim adalah admin
-    if (req.user.role !== 1) {  // 1 adalah admin
-      return res.status(403).json({ message: "Access denied." });
-    }
-
     const newClass = {
       id_teacher,
       id_category,
@@ -67,10 +62,6 @@ const updateClass = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
-    }
-
     const updatedClass = await Classes.updateClass(id_class, {
       id_teacher,
       id_category,
@@ -94,9 +85,6 @@ const deleteClass = async (req, res) => {
   const { id_class } = req.params;
 
   try {
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
-    }
 
     const deletedClass = await Classes.deleteClass(id_class);
 
