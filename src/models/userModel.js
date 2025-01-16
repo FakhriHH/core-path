@@ -20,6 +20,14 @@ const User = {
   deleteUser: (id) => {
     return db('users').where({ id_user: id }).del();
   },
+  updatePassword: (email, hashedPassword) => {
+    return db('users').where({ email }).update({ password: hashedPassword });
+  }
 };
 
-module.exports = User;
+const findByEmail = async (email) => {
+  const [user] = await db('users').where({ email }).select('*');
+  return user;
+};
+
+module.exports = { User, findByEmail };
