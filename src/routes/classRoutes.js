@@ -13,6 +13,6 @@ router.get('/category/:categoryId', authenticateToken, getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', authenticateToken, getClassesByLevel);
 router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);
-router.get('/getAllCategory', authenticateToken, authorizeRole([3]), getAllDataCategory);
+router.get('/getAllCategory', getAllDataCategory);
 
 module.exports = router;
