@@ -9,7 +9,7 @@ router.post('/create', authenticateToken,authorizeRole([1]), createClass);  // H
 router.get('/list', authenticateToken, getClasses);       // Semua bisa lihat
 router.put('/update/:id_class', authenticateToken, authorizeRole([1]), updateClass);  // Hanya admin
 router.delete('/delete/:id_class', authenticateToken, authorizeRole([1]),  deleteClass); // Hanya admin
-router.get('/category/:categoryId', authenticateToken, getClassesByCategory);
+router.get('/category/:categoryId', getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', authenticateToken, getClassesByLevel);
 router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);

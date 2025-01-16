@@ -14,6 +14,14 @@ app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+app.get('/core-path', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'section', 'detailClass.html'));
+});
+
+app.get('/aboutUs', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'section', 'aboutUs.html'));
+});
+
 // Routing
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'section', 'LoginPage.html'));
