@@ -10,11 +10,6 @@ const createClass = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Cek apakah yang mengirim adalah admin
-    if (req.user.role !== 1) {  // 1 adalah admin
-      return res.status(403).json({ message: "Access denied." });
-    }
-
     const newClass = {
       id_teacher,
       id_category,
@@ -57,6 +52,16 @@ const getClasses = async (req, res) => {
   }
 };
 
+const getAllDataLevel = async (req, res) => {
+  try {
+    const levels = await db('levels').select('*'); 
+    res.status(200).json({ levels });
+  } catch (error) {
+    console.error('Error in getAllDataLevel:', error.message); 
+    res.status(500).json({ error: 'Failed to fetch levels data' });
+  }
+};
+
 // Update Class Controller
 const updateClass = async (req, res) => {
   const { id_class } = req.params;
@@ -65,10 +70,6 @@ const updateClass = async (req, res) => {
   try {
     if (!id_teacher || !id_category || !id_schedule || !id_level || !price) {
       return res.status(400).json({ message: "All fields are required." });
-    }
-
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
     }
 
     const updatedClass = await Classes.updateClass(id_class, {
@@ -94,9 +95,6 @@ const deleteClass = async (req, res) => {
   const { id_class } = req.params;
 
   try {
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
-    }
 
     const deletedClass = await Classes.deleteClass(id_class);
 
@@ -146,4 +144,4 @@ const getClassesByLevel = async (req, res) => {
   }
 };
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel };
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel };
