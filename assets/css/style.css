@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap');
+
+*{
+  font-family: 'Kreon', serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+:root {
+  --primary-color: #1D5671;
+  --secondary-color: #E7F6FF;
+  --yellow-color: rgb(212, 245, 95);
+  --white-color: #fff;
+  --black-color: #333333;
+}
+
+
+/* Navbar */
+nav {
+  background-color: var(--secondary-color);
+  border-bottom: solid 1px var(--primary-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.nav-item a, .navbar-brand {
+  color: var(--primary-color) !important;
+}
+
+.icon-user{
+  color: var(--white-color);
+  font-size: 20px;
+  background: var(--primary-color);
+  border-radius: 50px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logo-navbar{
+  width: 50px;
+  height: auto;
+}
+
+.menu-navbar{
+  width: 100%;
+  height: auto;
+  background: #000 !important;
+}
+
+.menu-admin{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  right: 5rem;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+.menu-admin a{
+  color: var(--primary-color) !important;
+}
+
+.btn-logout{
+  background-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+}
+
+.translate{
+ transform: translateY(-100%, -100%);
+}
+
+
+/* Hero */
+.hero{
+  display: flex;
+  background-color: var(--primary-color);
+  background-image: linear-gradient(to right, #619EC3, #FCFEFF);
+  width: 100%;
+  height: 200px;
+  /* border-bottom: solid 1px var(--primary-color); */
+  border-radius: 0 0 30px 30px;
+}
+
+.hero{
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+
+.hero h1{
+  color: #fff;
+  font-size: 32px;
+}
+
+.hero h2{
+  color: #fff;
+  font-size: 18px;
+}
+
+header h3{
+  color: var(--primary-color);
+}
+
+
+/* My Class */
+.btn-active{
+  background-color: rgba(255, 244, 32, 0.5);
+  color: rgb(171, 163, 0);
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  border:1px solid rgb(217, 206, 0);
+  padding: 5px 30px;
+}
+
+.opt-btn-my-class {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btn-my-class{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  border:1px solid var(--primary-color);
+  padding: 5px 30px;
+}
+
+.btn-my-class:hover{
+  background-color: rgba(255, 244, 32, 0.5);
+  color: rgb(171, 163, 0);
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  border:1px solid rgb(217, 206, 0);
+  padding: 5px 30px;
+}
+
+
+/* Upcoming-Class */
+.upcoming-class header{
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.card-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+.card-container h3{
+  color: var(--primary-color);
+}
+
+.upcoming-class .card{
+  border: 1px solid var(--primary-color) !important;
+  width: 400px;
+  height: auto;
+}
+
+.upcoming-class .card-title{
+  border-bottom: 1px solid var(--primary-color);
+  padding: 10px 0;
+}
+
+.upcoming-class .card-body{
+  color: var(--primary-color);
+}
+
+.upcoming-class .btn-going-to-class{
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-size: 12px;
+  padding: 5px 20px;
+}
+
+.upcoming-class .btn-going-to-class:hover{
+  text-decoration: none;
+  background-color: rgba(255, 244, 32, 0.5);
+  color: rgb(171, 163, 0);
+  font-size: 12px;
+  padding: 5px 20px;
+}
+
+
+/* Footer */
+footer{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 0;
+  margin-bottom: -1rem;
+}
+
+footer .container-footer{
+  display: flex;
+  justify-content: space-between;
+}
+
+footer .container-menu-footer{
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+
+footer .logo{
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 27px;
+  color: var(--primary-color);
+  scale: .8;
+  margin-left: -1rem;
+}
+
+footer .description-footer{
+  padding: 5rem 0;
+  width: 400px;
+  height: auto;
+}
+
+.container-menu-footer{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+footer p:nth-child(2){  
+  font-size: 15px;
+}
+
+footer a{
+  text-decoration: none !important;
+  color: var(--secondary-color);
+}
+
+footer .menu, footer .hubungi-kami{
+  padding: 20px 0;
+  max-width: 300px;
+  height: fit-content;
+}
+
+@media screen and (max-width: 768px) {
+  .card-container .card{
+    width: fit-content;
+    height: fit-content;
+  }
+
+  footer .container-footer{
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  footer .description-footer{
+    width: fit-content;
+    height: fit-content;
+  }
+
+  footer .container-menu-footer{
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+    gap: 1rem;
+  }
+}
