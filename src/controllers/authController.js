@@ -62,12 +62,12 @@ const login = async (req, res) => {
     const user = await User.getUserByEmail(email);
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Email not Found' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Incorrect Password' });
     }
 
     const token = jwt.sign({ id: user.id_user, role: user.id_role }, process.env.JWT_SECRET, { expiresIn: '1h' });
