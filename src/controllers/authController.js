@@ -2,25 +2,28 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 const User = require('../models/userModel');
 const db = require('../config/knex');
 const knex = require('knex')(require('../../knexfile')[process.env.NODE_ENV || 'development']);
 
 // Registrasi User
 const register = async (req, res) => {
-  const { name, email, password, phone, date_of_birth, gender, address, id_role = 3 } = req.body; // Default role siswa
+  const { name, email, password, phone, date_of_birth, gender, address, city, postal_code, id_role = 3 } = req.body; // Default role siswa
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      name,
-      email,
-      password: hashedPassword,
-      phone,
-      date_of_birth,
-      gender,
-      address,
-      id_role
+        name,
+        email,
+        password: hashedPassword,
+        phone,
+        date_of_birth,
+        gender,
+        address,
+        city,
+        postal_code,
+        id_role
     };
 
     await User.createUser(newUser);
@@ -180,9 +183,21 @@ const forgotPassword = async (req, res) => {
           subject: "Password Reset Request",
           html: `
               <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
-                  <h2 style="text-align: center; color: #007BFF;">Password Reset Request</h2>
-                  <p>Hello <b>${user.name}</b>,</p>
-                  <p>You requested a password reset. Click the button below to reset your password:</p>
+               <!-- Gambar di pojok kiri atas -->
+                <div style="float: left; width: 60px; margin-top: -60px;">
+                    <img src="cid:hiasan" alt="Corner Left Top Decoration" style="max-width: 100%; height: auto;">
+                </div>
+        
+                <!-- Gambar di pojok kanan atas -->
+                <div style="float: right; width: 60px; margin-top: -60px;">
+                    <img src="cid:hiasan" alt="Corner Right Top Decoration" style="max-width: 100%; height: auto;">
+                </div>
+
+                <h2 style="text-align: center; color: #007BFF;">Password Reset Request</h2>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img src="cid:core-path" alt="Company Logo" style="max-width: 100px;">
+                </div>
+                <p style="text-align: center">You requested a password reset. Click the button below to reset your password:</p>
                   <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 20px auto;">
                       <tr>
                           <td align="center" bgcolor="#007BFF" style="border-radius: 4px;">
@@ -193,18 +208,26 @@ const forgotPassword = async (req, res) => {
                           </td>
                       </tr>
                   </table>
-                  <p>If the button above does not work, copy and paste the following link into your browser:</p>
-                  <p style="word-wrap: break-word;">
-                      <a href="${resetLink}" style="color: #007BFF;">${resetLink}</a>
-                  </p>
-                  <p>If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
+                  <p style="text-align: center">If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
                   <hr style="border: 0; border-top: 1px solid #ddd;">
                   <p style="text-align: center; font-size: 12px; color: #777;">
-                      © 2025 Your Company Name. All rights reserved.<br>
+                      © 2025 Core-Path. All rights reserved.<br>
                       Need help? <a href="mailto:support@example.com" style="color: #007BFF;">Contact Support</a>.
                   </p>
-              </div>
+                </div>
           `,
+          attachments: [
+            {
+              filename: 'logo.jpeg',
+              path: path.join(__dirname, '../utils/logo.jpeg'),// Path ke gambar lokal
+              cid: 'core-path' // Content-ID untuk attachment
+            },
+            {
+                filename: 'hiasan.jpeg',  // Gambar hiasan kiri atas
+                path: path.join(__dirname, '../utils/hiasan.jpeg'),
+                cid: 'hiasan'
+            },
+          ]
       };          
 
       // Kirim email
