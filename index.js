@@ -2,7 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
-const path = require('path');
+const classRoutes = require('./src/routes/classRoutes');
+const path = require("path");
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get('/payment', (req, res) => {
 });
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/classes', classRoutes); 
 
 // Start Server
 const PORT = process.env.PORT || 5000;
