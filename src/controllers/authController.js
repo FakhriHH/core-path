@@ -3,29 +3,50 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const path = require('path');
-const User = require('../models/userModel');
+const { User, findByEmail } = require('../models/userModel');
 const knex = require('../config/knex');
 const tokenBlacklist = require('../utils/blacklist')
 
 // Registrasi User
 const register = async (req, res) => {
-  const { name, email, password, phone, date_of_birth, gender, address, city, postal_code, id_role = 3 } = req.body; // Default role siswa
+  const { 
+    name, 
+    email, 
+    password, 
+    phone, 
+    date_of_birth, 
+    gender, 
+    address, 
+    city, 
+    postal_code, 
+    id_role = 3 // Default role siswa
+  } = req.body;
+
+  if (!name || !email || !password || !phone || !date_of_birth || !gender || !address || !city || !postal_code) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
 
   try {
+    const existingUser = await findByEmail(email); 
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-        date_of_birth,
-        gender,
-        address,
-        city,
-        postal_code,
-        id_role
+      name,
+      email,
+      password: hashedPassword,
+      phone,
+      date_of_birth,
+      gender,
+      address,
+      city,
+      postal_code,
+      id_role
     };
 
+    // Simpan user baru
     await User.createUser(newUser);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
@@ -303,4 +324,42 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword, updateUser, deleteUser };
+const updatePassword = async (req, res) => {
+  const { email, oldPassword, newPassword, confirmNewPassword } = req.body;
+
+  // Validasi input
+  if (!email || !oldPassword || !newPassword || !confirmNewPassword) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).json({ message: 'New password and confirm password do not match' });
+  }
+
+  try {
+    // Cari pengguna berdasarkan email
+    const user = await findByEmail(email); // Asumsikan ada fungsi findByEmail di model User
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Validasi password lama
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Old password is incorrect' });
+    }
+
+    // Hash password baru
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Perbarui password di database
+    await User.updatePassword(email, hashedPassword); // Fungsi updatePassword di model User
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating password', error: err.message });
+  }
+};
+
+
+module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword, updateUser, deleteUser, updatePassword };
