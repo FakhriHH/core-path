@@ -1,0 +1,114 @@
+/* Global Styles */
+body {
+  background-color: #eaf5ff;
+  font-family: 'Arial', sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(to right, #80c8ff, #b3e5ff);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.header .logo {
+  width: 80px;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  color: #00395d;
+}
+
+.login-btn {
+  border-radius: 20px;
+}
+
+.login-btn:hover {
+  background-color: #1a75bb;
+}
+
+/* Gradient Section */
+.gradient-section {
+  background: linear-gradient(to right, #e3f2fd, #82b4e8);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+}
+
+.lantern {
+  max-width: 100px;
+  right: 100%;
+}
+
+.custom-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1D5671;
+}
+
+/* Menu Section */
+.menu-section h2 {
+  font-size: 1.5rem;
+  color: #00395d;
+}
+
+.lesson-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.lesson-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Buttons */
+.nav-buttons a {
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+}
+
+footer {
+  background-color: #1D5671; /* Footer biru gelap */
+  color: white;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding-top: 20px;
+}
+.btn-primary {
+  background-color: #1D5671;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #174454;
+}
+.highlight-text {
+  color: red;
+  text-decoration: line-through;
+}
+.success-text {
+  color: #1D5671;
+  font-weight: bold;
+}
+.footer-section h5 {
+  font-weight: bold;
+}
+/* Media Queries */
+@media (min-width: 992px) {
+  .header-title {
+    font-size: 2rem;
+  }
+
+  .custom-text {
+    font-size: 1.5rem;
+  }
+}

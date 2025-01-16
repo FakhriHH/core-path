@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Core Path</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style_home.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header d-flex justify-content-between align-items-center p-3">
+    <div class="d-flex align-items-center">
+      <img src="/assets/image/Logo.png" alt="Core Path Logo" class="img-fluid logo">
+      <h1 class="header-title ms-3">Core Path</h1>
+    </div>
+    <a href="#" class="btn btn-primary login-btn">Masuk / Daftar</a>
+  </header>
+
+  <!-- Gradient Section -->
+  <section class="gradient-section text-center py-2">
+    <div class="d-flex justify-content-start align-items-center ">
+      <img src="/assets/image/Hiasan.png" alt="Lantern 1" class="img-fluid lantern">
+      <span class="custom-text ms-3">Hi, mau belajar apa hari ini?</span>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section container text-center my-5">
+    <h2>Pilih Pelajaran</h2>
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4" id="categoryClass" >
+        <div class="lesson-card p-3" >
+          <img src="/assets/image/gambar_tajwid.png" alt="Quranic Lesson" class="img-fluid">
+          <a href="/api/classes/category/1"><h3>Quranic Lesson</h3></a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="lesson-card p-3">
+          <img src="/assets/image/inggris.png" alt="English Lesson" class="img-fluid">
+          <a href="/api/classes/category/2"><h3>English Lesson</h3></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons text-center my-5">
+    <a href="#" class="btn btn-secondary btn-lg me-3">About Us</a>
+    <a href="prising" class="btn btn-secondary btn-lg">Pricing</a>
+  </div>
+
+  <!-- Footer -->
+<footer class="py-6">
+  <div class="container d-flex justify-content-between">
+      <!-- About Section -->
+      <div class="footer-section">
+          <h5>Core Path</h5>
+          <p>
+              Why Choose Core Path for Your Child’s Journey?<br>
+              At Core Path, we believe that every child deserves a meaningful education tailored to their needs, values, and aspirations.
+          </p>
+      </div>
+      <!-- Menu Section -->
+      <div class="footer-section">
+          <h5>Menu</h5>
+          <ul class="list-unstyled">
+              <li>Home</li>
+              <li>Course</li>
+              <li>About Us</li>
+          </ul>
+      </div>
+      <!-- Contact Section -->
+      <div class="footer-section">
+          <h5>Hubungi Kami</h5>
+          <p>corepath.info@gmail.com</p>
+          <p>+62 812-3456-7890</p>
+          <p>Komplek A, Jalan B, Kecamatan C <br> Kabupaten D - Provinsi E</p>
+      </div>
+  </div>
+</footer>
+
+  <!-- <script src="/assets/js/home.js"></script> -->
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- <script> 
+  function getCategoryIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('categoryId');
+        }
+    async function loadSidebarContent() {
+      const categoryId = getCategoryIdFromUrl();
+      const categoryContent = document.getElementById('categoryClass');
+        try {
+            const response = await fetch(`/api/classes/getAllCategory`);
+            if (!response.ok) throw new Error('Failed to fetch data');
+            const data = await response.json();
+            const datas = data.category;
+
+            console.log(datas);
+          
+        categoryContent.innerHTML = '';
+        if (datas.length > 0) {
+                    datas.forEach(item => {
+                      const lessonCard = `
+                      <div class="col-md-4 text-center mb-4">
+                        <div class="lesson-card">
+                          <a href="#"><h3>${item.name_category}</h3></~a>
+                        </div>
+                      </div>
+                    `;
+                    categoryContent.insertAdjacentHTML('beforeend', lessonCard);
+                  });
+                } else {
+                    categoryContent.innerHTML = '<p>No items found for this category.</p>';
+                }
+            } catch (error) {
+              console.error(error);
+              sidebar.innerHTML = '<p class="text-danger">Failed to load sidebar content.</p>';
+            }
+}
+
+
+document.addEventListener('DOMContentLoaded', loadSidebarContent);
+            </script> -->
+</body>
+</html>

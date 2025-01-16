@@ -53,11 +53,17 @@ class CategoryClass {
   static async getCategoryById(id_category) {
     return db('category_class').where({ id_category }).first();
   }
+  static async getAllDataCategory() {
+    return db('category_class').select('*');
+  }
 }
 
 class Levels {
   static async getLevelById(id_level) {
     return db('levels').where({ id_level }).first();
+  }
+  static async getAllDataLevel() {
+    return db('levels').select('*');
   }
 }
 

@@ -1,5 +1,6 @@
 const { Classes, CategoryClass, Levels, User } = require('../models/classModel');
 const db = require('../config/knex');
+const { response } = require('express');
 
 // Create Class Controller
 const createClass = async (req, res) => {
@@ -8,11 +9,6 @@ const createClass = async (req, res) => {
   try {
     if (!id_teacher || !id_category || !id_schedule || !id_level || !price) {
       return res.status(400).json({ message: "All fields are required." });
-    }
-
-    // Cek apakah yang mengirim adalah admin
-    if (req.user.role !== 1) {  // 1 adalah admin
-      return res.status(403).json({ message: "Access denied." });
     }
 
     const newClass = {
@@ -67,10 +63,6 @@ const updateClass = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
-    }
-
     const updatedClass = await Classes.updateClass(id_class, {
       id_teacher,
       id_category,
@@ -94,9 +86,6 @@ const deleteClass = async (req, res) => {
   const { id_class } = req.params;
 
   try {
-    if (req.user.role !== 1) {
-      return res.status(403).json({ message: "Access denied." });
-    }
 
     const deletedClass = await Classes.deleteClass(id_class);
 
@@ -116,7 +105,8 @@ const getClassesByCategory = async (req, res) => {
 
   try {
     const classesByCategory = await Classes.getAllDataClassByCategory(categoryId);
-    res.status(200).json(classesByCategory);
+    // res.status(200).json(classesByCategory);
+    res.redirect(`/core_path/category/${categoryId}`);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving classes by category", error: err.message });
   }
@@ -146,4 +136,24 @@ const getClassesByLevel = async (req, res) => {
   }
 };
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel };
+const getAllDataLevel = async (req, res) => {
+  try {
+    const levels = await db('levels').select('*'); 
+    res.status(200).json({ levels });
+  } catch (error) {
+    console.error('Error in getAllDataLevel:', error.message); 
+    res.status(500).json({ error: 'Failed to fetch levels data' });
+  }
+};
+
+const getAllDataCategory = async (req, res) => {
+  try {
+    const category = await db('category_class').select('*'); 
+    res.status(200).json({ category });
+  } catch (error) {
+    console.error('Error in getAllDataCategory:', error.message); 
+    res.status(500).json({ error: 'Failed to fetch class category data' });
+  }
+};
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory };
