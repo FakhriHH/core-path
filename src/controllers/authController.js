@@ -2,15 +2,36 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
-const db = require('../config/knex');
-const knex = require('knex')(require('../../knexfile')[process.env.NODE_ENV || 'development']);
+const path = require('path');
+const { User, findByEmail } = require('../models/userModel');
+const knex = require('../config/knex');
+const tokenBlacklist = require('../utils/blacklist')
 
 // Registrasi User
 const register = async (req, res) => {
-  const { name, email, password, phone, date_of_birth, gender, address, id_role = 3 } = req.body; // Default role siswa
+  const { 
+    name, 
+    email, 
+    password, 
+    phone, 
+    date_of_birth, 
+    gender, 
+    address, 
+    city, 
+    postal_code, 
+    id_role = 3 // Default role siswa
+  } = req.body;
+
+  if (!name || !email || !password || !phone || !date_of_birth || !gender || !address || !city || !postal_code) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
 
   try {
+    const existingUser = await findByEmail(email); 
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
       name,
@@ -20,9 +41,12 @@ const register = async (req, res) => {
       date_of_birth,
       gender,
       address,
+      city,
+      postal_code,
       id_role
     };
 
+    // Simpan user baru
     await User.createUser(newUser);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
@@ -38,23 +62,30 @@ const login = async (req, res) => {
     const user = await User.getUserByEmail(email);
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Email not Found' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Incorrect Password' });
     }
 
     const token = jwt.sign({ id: user.id_user, role: user.id_role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.status(200).json({ message: 'Login successful', token });
   } catch (err) {
+    console.error('Internal Server Error:', err);
     res.status(500).json({ message: 'Error logging in', error: err.message });
   }
 };
 
 // Logout User
 const logout = (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    return res.status(400).json({ message: 'No token provided' });
+  }
+
+  tokenBlacklist.add(token); // Tambahkan token ke blacklist
   res.status(200).json({ message: 'Logout successful' });
 };
 
@@ -141,7 +172,7 @@ const forgotPassword = async (req, res) => {
       if (!email) {
           return res.status(400).json({ message: "Email is required." });
       }
-
+ 
       // Cari user berdasarkan email
       const user = await knex("users").where({ email }).first();
 
@@ -180,9 +211,19 @@ const forgotPassword = async (req, res) => {
           subject: "Password Reset Request",
           html: `
               <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
-                  <h2 style="text-align: center; color: #007BFF;">Password Reset Request</h2>
-                  <p>Hello <b>${user.name}</b>,</p>
-                  <p>You requested a password reset. Click the button below to reset your password:</p>
+                <div style="float: left; width: 60px; margin-top: -60px;">
+                    <img src="cid:hiasan" alt="Corner Left Top Decoration" style="max-width: 100%; height: auto;">
+                </div>
+        
+                <div style="float: right; width: 60px; margin-top: -60px;">
+                    <img src="cid:hiasan" alt="Corner Right Top Decoration" style="max-width: 100%; height: auto;">
+                </div>
+
+                <h2 style="text-align: center; color: #007BFF;">Password Reset Request</h2>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img src="cid:core-path" alt="Company Logo" style="max-width: 100px;">
+                </div>
+                <p style="text-align: center">You requested a password reset. Click the button below to reset your password:</p>
                   <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 20px auto;">
                       <tr>
                           <td align="center" bgcolor="#007BFF" style="border-radius: 4px;">
@@ -193,18 +234,26 @@ const forgotPassword = async (req, res) => {
                           </td>
                       </tr>
                   </table>
-                  <p>If the button above does not work, copy and paste the following link into your browser:</p>
-                  <p style="word-wrap: break-word;">
-                      <a href="${resetLink}" style="color: #007BFF;">${resetLink}</a>
-                  </p>
-                  <p>If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
+                  <p style="text-align: center">If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
                   <hr style="border: 0; border-top: 1px solid #ddd;">
                   <p style="text-align: center; font-size: 12px; color: #777;">
-                      © 2025 Your Company Name. All rights reserved.<br>
-                      Need help? <a href="mailto:support@example.com" style="color: #007BFF;">Contact Support</a>.
+                      © 2025 Core-Path. All rights reserved.<br>
+                      Need help? <a href="mailto:hawarihabib7@gmail.com" style="color: #007BFF;">Contact Support</a>.
                   </p>
-              </div>
+                </div>
           `,
+          attachments: [
+            {
+              filename: 'logo.jpeg',
+              path: path.join(__dirname, '../utils/img/logo.jpeg'),
+              cid: 'core-path' 
+            },
+            {
+                filename: 'hiasan.jpeg', 
+                path: path.join(__dirname, '../utils/img/hiasan.jpeg'),
+                cid: 'hiasan'
+            },
+          ]
       };          
 
       // Kirim email
@@ -218,5 +267,99 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+// Update User
+const updateUser = async (req, res) => {
+  const { id } = req.params; // ID user dari parameter URL
+  const { name, email, phone, date_of_birth, gender, address, city, postal_code } = req.body;
 
-module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword };
+  try {
+    // Validasi keberadaan user
+    const existingUser = await User.getUserById(id);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Data yang akan diupdate
+    const updatedData = {
+      name,
+      email,
+      phone,
+      date_of_birth,
+      gender,
+      address,
+      city,
+      postal_code
+    };
+
+    // Filter field undefined
+    const cleanData = Object.fromEntries(Object.entries(updatedData).filter(([_, v]) => v !== undefined));
+
+    // Update user di database
+    await knex("users").where({ id_user: id }).update(cleanData);
+
+    res.status(200).json({ message: "User updated successfully" });
+  } catch (err) {
+    console.error("Error updating user:", err.message);
+    res.status(500).json({ message: "An error occurred while updating user", error: err.message });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const { id } = req.params; // ID user dari parameter URL
+
+  try {
+    // Validasi keberadaan user
+    const existingUser = await User.getUserById(id);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Hapus user dari database
+    await knex("users").where({ id_user: id }).del();
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err.message);
+    res.status(500).json({ message: "An error occurred while deleting user", error: err.message });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  const { email, oldPassword, newPassword, confirmNewPassword } = req.body;
+
+  // Validasi input
+  if (!email || !oldPassword || !newPassword || !confirmNewPassword) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).json({ message: 'New password and confirm password do not match' });
+  }
+
+  try {
+    // Cari pengguna berdasarkan email
+    const user = await findByEmail(email); // Asumsikan ada fungsi findByEmail di model User
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Validasi password lama
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Old password is incorrect' });
+    }
+
+    // Hash password baru
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Perbarui password di database
+    await User.updatePassword(email, hashedPassword); // Fungsi updatePassword di model User
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating password', error: err.message });
+  }
+};
+
+
+module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword, updateUser, deleteUser, updatePassword };
