@@ -1,5 +1,6 @@
-const { Classes, CategoryClass, Levels, User } = require('../models/classModel');
+const { Classes, CategoryClass, Levels, User, Schedule } = require('../models/classModel');
 const db = require('../config/knex');
+const dayjs = require('dayjs');
 
 // Create Class Controller
 const createClass = async (req, res) => {
@@ -182,5 +183,29 @@ const getAllClassesById = async (req, res) => {
   }
 };
 
+const getDayName = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { weekday: 'long' }); 
+};
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById };
+const getScheduleByLevel = async (req, res) => {
+  const { id_level } = req.params;
+
+  try {
+    const schedules = await Schedule.getScheduleByLevel(id_level);
+
+    const formattedSchedules = schedules.map((schedule) => ({
+      ...schedule,
+      day: getDayName(schedule.day),
+    }));
+
+    res.status(200).json(formattedSchedules);
+    
+    
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving schedule", error: error.message });
+  }
+}
+
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel };
