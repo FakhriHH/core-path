@@ -2,11 +2,7 @@ const { authenticateToken, authorizeRole } = require('../middlewares/authMiddlew
 
 const express = require('express');
 const router = express.Router();
-const { 
-    createClass, getClasses, updateClass, deleteClass, 
-    getClassesByCategory, getClassesByRole, getClassesByLevel, 
-    getAllDataLevel, getAllDataCategory, getAllClassesById, 
-    getAllCategoryById, getScheduleByLevel } = require('../controllers/classController');
+const {createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel } = require('../controllers/classController');
 
 // Route untuk CRUD kelas
 router.post('/create', authenticateToken,authorizeRole([1]), createClass);  // Hanya admin

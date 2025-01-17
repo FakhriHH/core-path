@@ -1,10 +1,7 @@
 const { Classes, CategoryClass, Levels, User, Schedule } = require('../models/classModel');
 const db = require('../config/knex');
-<<<<<<< HEAD
 const { response } = require('express');
-=======
 const dayjs = require('dayjs');
->>>>>>> fakhri-dev
 
 // Create Class Controller
 const createClass = async (req, res) => {
