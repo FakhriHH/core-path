@@ -5,9 +5,9 @@ const { authenticateToken, authorizeRole } = require('../middlewares/authMiddlew
 
 
 // hanya bisa dilakukan oleh (1) admin
-router.post('/', authenticateToken, authorizeRole([1]), scheduleController.createSchedule);
-router.put('/:id', authenticateToken, authorizeRole([1]), scheduleController.updateSchedule);
-router.delete('/:id', authenticateToken, authorizeRole([1]), scheduleController.deleteSchedule);
+router.post('/create', authenticateToken, authorizeRole([1]), scheduleController.createSchedule);
+router.put('/update/:id', authenticateToken, authorizeRole([1]), scheduleController.updateSchedule);
+router.delete('/delete/:id', authenticateToken, authorizeRole([1]), scheduleController.deleteSchedule);
 
 // dapat dilakukan oleh publik
 router.get('/', scheduleController.getAllSchedules);
