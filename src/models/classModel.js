@@ -92,6 +92,21 @@ class User {
   }
 }
 
+class Schedule {
+  static async getScheduleByLevel(id_level) {
+    return db('classes')
+    .join('schedule', 'classes.id_schedule', '=', 'schedule.id_schedule')
+    .join('levels', 'classes.id_level', '=', 'levels.id_level')
+    .select(
+      'schedule.id_schedule',
+      'schedule.day',
+      'schedule.start_time',
+      'schedule.end_time'
+    )
+    .where('classes.id_level', id_level)
+  }
+}
 
-module.exports = { Classes, CategoryClass, Levels, User };
+
+module.exports = { Classes, CategoryClass, Levels, User, Schedule };
 
