@@ -118,8 +118,14 @@ const getClassesByCategory = async (req, res) => {
   const { categoryId } = req.params;
 
   try {
+
     const classesByCategory = await Classes.getAllDataClassByCategory(categoryId);
-    res.status(200).json(classesByCategory);
+    const formattedSchedules = classesByCategory.map((schedule) => ({
+      ...schedule,
+      day: getDayName(schedule.day),
+    }));
+
+    res.status(200).json(formattedSchedules);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving classes by category", error: err.message });
   }
