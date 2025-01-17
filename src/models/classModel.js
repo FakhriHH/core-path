@@ -75,14 +75,21 @@ class CategoryClass {
   static async getAllDataCategory() {
     return db('category_class').select('*');
   }
+
 }
 
 class Levels {
   static async getLevelById(id_level) {
     return db('levels').where({ id_level }).first();
   }
-  static async getAllDataLevel() {
-    return db('levels').select('*');
+  
+
+  static async getLevelsByCategory(id_category) {
+    return db('classes')
+    .join('levels', 'classes.id_level', '=', 'levels.id_level')
+    .join('category_class', 'category_class.id_category', '=', 'classes.id_category')
+    .select('levels.id_level', 'levels.level_name')
+    .where('category_class.id_category', id_category);
   }
 }
 

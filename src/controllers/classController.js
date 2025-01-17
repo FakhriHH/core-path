@@ -207,5 +207,21 @@ const getScheduleByLevel = async (req, res) => {
   }
 }
 
+const getLevelsByCategory = async (req, res) => {
+  const { id_category } = req.params;
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel };
+  try {
+    const levels = await Levels.getLevelsByCategory(id_category);
+
+    res.status(200).json(levels);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching levels.',
+    });
+  }
+};
+
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel, getLevelsByCategory };
