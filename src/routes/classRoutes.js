@@ -11,9 +11,9 @@ router.put('/update/:id_class', authenticateToken, authorizeRole([1]), updateCla
 router.delete('/delete/:id_class', authenticateToken, authorizeRole([1]),  deleteClass); // Hanya admin
 router.get('/category/:categoryId', getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
-router.get('/level/:levelId', authenticateToken, getClassesByLevel);
-router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);
-router.get('/getAllCategory', authenticateToken, authorizeRole([3]), getAllDataCategory);
+router.get('/level/:levelId', getClassesByLevel);
+router.get('/getAllLevel', getAllDataLevel);
+router.get('/getAllCategory', getAllDataCategory);
 router.get('/classes/:id_class', authenticateToken, authorizeRole([3]), getAllClassesById);
 router.get('/category/:id_category',authenticateToken, authorizeRole([3]), getAllCategoryById);
 router.get('/schedule/:id_level', authenticateToken, authorizeRole([3]), getScheduleByLevel);

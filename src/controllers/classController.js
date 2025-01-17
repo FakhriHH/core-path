@@ -1,6 +1,5 @@
 const { Classes, CategoryClass, Levels, User, Schedule } = require('../models/classModel');
 const db = require('../config/knex');
-const { response } = require('express');
 const dayjs = require('dayjs');
 
 // Create Class Controller
@@ -120,8 +119,7 @@ const getClassesByCategory = async (req, res) => {
 
   try {
     const classesByCategory = await Classes.getAllDataClassByCategory(categoryId);
-    // res.status(200).json(classesByCategory);
-    res.redirect(`/core_path/${categoryId}`);
+    res.status(200).json(classesByCategory); // Kembalikan data JSON
   } catch (err) {
     res.status(500).json({ message: "Error retrieving classes by category", error: err.message });
   }

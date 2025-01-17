@@ -210,43 +210,84 @@
     ></script>
 
     <script>
-      // Function to get the category ID from the URL
+      // Get the id_category from the URL
       function getCategoryIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get("categoryId"); // Extract the category ID
+        return urlParams.get("id_category");
       }
-
+    
+      // Load class details based on id_category
+      async function loadClassDetails() {
+        const idCategory = getCategoryIdFromUrl();
+        if (!idCategory) {
+          console.error("Category ID not found in URL");
+          return;
+        }
+    
+        try {
+          const response = await fetch(`/api/classes/category/${idCategory}`);
+          if (!response.ok) throw new Error("Failed to fetch class details");
+          const data = await response.json();
+    
+          // Render data to the page
+          renderClassDetails(data);
+        } catch (error) {
+          console.error(error);
+          document.querySelector("#classDetailsContainer").innerHTML =
+            "<p class='text-danger'>Failed to load class details. Please try again later.</p>";
+        }
+      }
+    
+      function renderClassDetails(data) {
+        const container = document.querySelector("#classDetailsContainer");
+        container.innerHTML = data
+          .map(
+            (item) => `
+          <div class="class-card">
+            <h3>${item.class_name}</h3>
+            <p>${item.description}</p>
+          </div>`
+          )
+          .join("");
+      }
+    
+      // Load sidebar content
       async function loadSidebarContent() {
         const sidebarContent = document.querySelector("#sidebarContent");
-
+    
         try {
           const response = await fetch("/api/classes/getAllLevel");
           if (!response.ok) throw new Error("Failed to fetch data");
           const data = await response.json();
-
-          // Kosongkan kontainer sebelum menambahkan konten baru
+    
+          // Clear the container before adding new content
           sidebarContent.innerHTML = "";
-
-          // Tambahkan judul kembali
+    
+          // Add the title
           const title = document.createElement("h6");
           title.className = "text-center mt-4 levelTitle";
           title.id = "bookingTitle";
           title.textContent = "Booking Placement Test";
           sidebarContent.appendChild(title);
-
-          // Tambahkan setiap level sebagai card individual
+    
+          // Add each level as an individual card
           data.levels.forEach((item) => {
             const levelCard = document.createElement("button");
             levelCard.className =
               "card text-white level-card-custom d-flex align-items-center justify-content-center";
             levelCard.id = `levelCard-${item.level_name}`;
-
+    
             const levelCardBody = document.createElement("div");
             levelCardBody.className = "card-body";
             levelCardBody.textContent = item.level_name;
-
+    
             levelCard.appendChild(levelCardBody);
             sidebarContent.appendChild(levelCard);
+    
+            // Load booking cards when the level card is clicked
+            levelCard.addEventListener("click", () =>
+              loadBookingCards(item.id_level)
+            );
           });
         } catch (error) {
           console.error(error);
@@ -254,8 +295,67 @@
             '<p class="text-danger">Failed to load levels. Please try again later.</p>';
         }
       }
-
-      document.addEventListener("DOMContentLoaded", loadSidebarContent);
-    </script>
+    
+      // Load booking cards based on the selected level
+      async function loadBookingCards(id_level) {
+        const categoryId = getCategoryIdFromUrl();
+        const sidebarContent = document.querySelector("#sidebarContent");
+    
+        try {
+          const response = await fetch(`/api/classes/schedule/${id_level}`);
+          if (!response.ok) throw new Error("Failed to fetch schedule");
+          const data = await response.json();
+    
+          // Filter schedules based on the category ID
+          const filteredSchedules = data.schedules.filter(
+            (schedule) => schedule.category_id == categoryId
+          );
+    
+          // Create booking cards
+          filteredSchedules.forEach((schedule) => {
+            const bookingCard = document.createElement("div");
+            bookingCard.className = "col mb-2";
+            bookingCard.id = "bookingCard";
+            bookingCard.style.display = "block";
+    
+            const bookingCardContent = `
+              <div class="col-12 justify-content-center">
+                <div
+                  class="card py-2 px-3 mb-3 card-custom d-flex flex-column justify-content-center gradient text-primary"
+                  id="bookingCard${schedule.id_schedule}"
+                >
+                  <div>
+                    <h6 class="card-title mb-0">${schedule.day}</h6>
+                    <p class="card-text fs-6">${schedule.time_slot}</p>
+                  </div>
+                  <button
+                    onclick="location.href='payment.html?id_schedule=${schedule.id_schedule}'"
+                    class="btn-custom text-center text-decoration-none"
+                    id="bookingButton${schedule.id_schedule}"
+                  >
+                    Booking
+                  </button>
+                </div>
+              </div>`;
+    
+            bookingCard.innerHTML = bookingCardContent;
+            sidebarContent.appendChild(bookingCard);
+          });
+        } catch (error) {
+          console.error(error);
+          const errorMessage = document.createElement("p");
+          errorMessage.className = "text-danger";
+          errorMessage.textContent =
+            "Failed to load schedules. Please try again later.";
+          sidebarContent.appendChild(errorMessage);
+        }
+      }
+    
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        loadSidebarContent();
+        loadClassDetails();
+      });
+    </script>    
   </body>
 </html>

@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.get('/core-path', (req, res) => {
+app.get('/detail_class', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'section', 'detailClass.html'));
 });
 
