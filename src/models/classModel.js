@@ -5,10 +5,6 @@ class Classes {
     return db('classes').insert(newClass).returning('id_class');
   }
 
-  static async getClassById(id_class) {
-    return db('classes').where({ id_class }).first();
-  }
-
   static getAllClasses() {
     return db('classes')
       .select('classes.id_class', 'category_class.name_category', 'levels.level_name', 'users.name as teacher_name', 'schedule.day', 'classes.price',)
@@ -17,6 +13,26 @@ class Classes {
       .leftJoin('users', 'classes.id_teacher', 'users.id_user')
       .leftJoin('schedule', 'classes.id_schedule', 'schedule.id_schedule')
       .where('users.id_role', 2);  // Mengambil dari role teacher
+  }
+
+  static async getAllClassesById(id_class) {
+    return db('classes')
+      .select(
+        'classes.id_class',
+        'category_class.name_category',
+        'levels.level_name',
+        'users.name as teacher_name',
+        'schedule.day',
+        'schedule.start_time',
+        'schedule.end_time',
+        'classes.price'
+      )
+      .leftJoin('category_class', 'classes.id_category', 'category_class.id_category')
+      .leftJoin('levels', 'classes.id_level', 'levels.id_level')
+      .leftJoin('users', 'classes.id_teacher', 'users.id_user')
+      .leftJoin('schedule', 'classes.id_schedule', 'schedule.id_schedule')
+      .where('classes.id_class', id_class)
+      .first(); // Ambil data pertama (detail satu kelas)
   }
 
   static updateClass(id_class, data) {
@@ -50,8 +66,11 @@ class Classes {
 }
 
 class CategoryClass {
-  static async getCategoryById(id_category) {
-    return db('category_class').where({ id_category }).first();
+  static async getAllCategoryById(id_category) {
+    return db('category_class')
+      .where({ id_category })
+      .select('id_category', 'name_category')
+      .first(); 
   }
   static async getAllDataCategory() {
     return db('category_class').select('*');
@@ -73,5 +92,21 @@ class User {
   }
 }
 
-module.exports = { Classes, CategoryClass, Levels, User };
+class Schedule {
+  static async getScheduleByLevel(id_level) {
+    return db('classes')
+    .join('schedule', 'classes.id_schedule', '=', 'schedule.id_schedule')
+    .join('levels', 'classes.id_level', '=', 'levels.id_level')
+    .select(
+      'schedule.id_schedule',
+      'schedule.day',
+      'schedule.start_time',
+      'schedule.end_time'
+    )
+    .where('classes.id_level', id_level)
+  }
+}
+
+
+module.exports = { Classes, CategoryClass, Levels, User, Schedule };
 

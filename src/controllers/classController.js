@@ -1,6 +1,10 @@
-const { Classes, CategoryClass, Levels, User } = require('../models/classModel');
+const { Classes, CategoryClass, Levels, User, Schedule } = require('../models/classModel');
 const db = require('../config/knex');
+<<<<<<< HEAD
 const { response } = require('express');
+=======
+const dayjs = require('dayjs');
+>>>>>>> fakhri-dev
 
 // Create Class Controller
 const createClass = async (req, res) => {
@@ -50,6 +54,20 @@ const getClasses = async (req, res) => {
     res.status(200).json(classes);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving classes", error: err.message });
+  }
+};
+
+const getAllCategoryById = async (req, res) => {
+  const { id_category } = req.params;
+
+  try {
+    const categoryDetails = await CategoryClass.getAllCategoryById(id_category);
+    if (!categoryDetails) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+    res.status(200).json(categoryDetails);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving category details", error: err.message });
   }
 };
 
@@ -156,4 +174,43 @@ const getAllDataCategory = async (req, res) => {
   }
 };
 
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory };
+const getAllClassesById = async (req, res) => {
+  const { id_class } = req.params;
+
+  try {
+    const classDetails = await Classes.getAllClassesById(id_class);
+    if (!classDetails) {
+      return res.status(404).json({ message: "Class not found" });
+    }
+    res.status(200).json(classDetails);
+  } catch (err) {
+    res.status(500).json({ message: "Error retrieving class details", error: err.message });
+  }
+};
+
+const getDayName = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { weekday: 'long' }); 
+};
+
+const getScheduleByLevel = async (req, res) => {
+  const { id_level } = req.params;
+
+  try {
+    const schedules = await Schedule.getScheduleByLevel(id_level);
+
+    const formattedSchedules = schedules.map((schedule) => ({
+      ...schedule,
+      day: getDayName(schedule.day),
+    }));
+
+    res.status(200).json(formattedSchedules);
+    
+    
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving schedule", error: error.message });
+  }
+}
+
+
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel };

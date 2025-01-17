@@ -2,7 +2,7 @@ const { authenticateToken, authorizeRole } = require('../middlewares/authMiddlew
 
 const express = require('express');
 const router = express.Router();
-const { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory } = require('../controllers/classController');
+const { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById } = require('../controllers/classController');
 
 // Route untuk CRUD kelas
 router.post('/create', authenticateToken,authorizeRole([1]), createClass);  // Hanya admin
@@ -13,6 +13,12 @@ router.get('/category/:categoryId', getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', authenticateToken, getClassesByLevel);
 router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);
+<<<<<<< HEAD
 router.get('/getAllCategory', getAllDataCategory);
+=======
+router.get('/getAllCategory', authenticateToken, authorizeRole([3]), getAllDataCategory);
+router.get('/classes/:id_class', authenticateToken, authorizeRole([3]), getAllClassesById);
+router.get('/category/:id_category',authenticateToken, authorizeRole([3]), getAllCategoryById);
+>>>>>>> fakhri-dev
 
 module.exports = router;
