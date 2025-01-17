@@ -15,15 +15,19 @@ const getClassBooking = async (req, res) => {
 // Create a new booking
 const createBooking = async (req, res) => {
   try {
-    const { id_user, id_class } = req.body;
+    const { id_user, id_class, id_level, book_status = 'pending' } = req.body;
+   if (!id_user || !id_class || !id_level) {
+      return res.status(400).json({ message: 'id_user and id_class are required' });
+    }
     const newBooking = {
       id_user,
       id_class,
-      book_status: true, // Default status
+      id_level
     };
+    
 
-    const [id_booking] = await Booking.createBooking(newBooking);
-    res.status(201).json({ message: 'Booking created successfully', id_booking });
+    const [booking] = await Booking.createBooking(newBooking);
+    res.status(201).json({ status : 201, message: 'Booking created successfully', booking });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -53,5 +57,7 @@ const updateBookingStatus = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 module.exports = { getClassBooking, createBooking, getUserBookings, updateBookingStatus };
