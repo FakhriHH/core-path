@@ -7,53 +7,53 @@ const knex = require('../config/knex');
 
 // Registrasi User
 const register = async (req, res) => {
-    const { 
-      name, 
-      email, 
-      password, 
-      phone, 
-      date_of_birth, 
-      gender, 
-      address, 
-      city, 
-      postal_code, 
-      id_role = 3 // Default role siswa
-    } = req.body;
-  
-    if (!name || !email || !password || !phone || !date_of_birth || !gender || !address || !city || !postal_code) {
-      return res.status(400).json({ message: 'All fields are required' });
+  const { 
+    name, 
+    email, 
+    password, 
+    phone, 
+    date_of_birth, 
+    gender, 
+    address, 
+    city, 
+    postal_code, 
+    id_role = 3 // Default role siswa
+  } = req.body;
+
+  if (!name || !email || !password || !phone || !date_of_birth || !gender || !address || !city || !postal_code) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const existingUser = await findByEmail(email); 
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
     }
-  
-    try {
-      const existingUser = await findByEmail(email); 
-      if (existingUser) {
-        return res.status(400).json({ message: 'Email already exists' });
-      }
-  
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = {
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-        date_of_birth,
-        gender,
-        address,
-        city,
-        postal_code,
-        id_role
-      };
-      console.log('New User Data:', newUser);
-  
-      // Simpan user baru
-      await User.createUser(newUser);
-      console.log('new user :', newUser);
-      res.status(201).json({ message: 'User registered successfully' });
-    } catch (err) {
-      res.status(500).json({ message: 'Error registering user', error: err.message });
-    }
-  };
-  
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = {
+      name,
+      email,
+      password: hashedPassword,
+      phone,
+      date_of_birth,
+      gender,
+      address,
+      city,
+      postal_code,
+      id_role
+    };
+    console.log('New User Data:', newUser);
+
+    // Simpan user baru
+    await User.createUser(newUser);
+    console.log('new user :', newUser);
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error registering user', error: err.message });
+  }
+};
+
 
 // Login User
 const login = async (req, res) => {
