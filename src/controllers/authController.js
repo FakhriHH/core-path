@@ -364,5 +364,25 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const getUserNameById = async (req, res) => {
+  const { id } = req.params;
 
-module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword, updateUser, deleteUser, updatePassword };
+  try {
+    const user = await User.getUserNameById(id); 
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching user',
+    });
+  }
+};
+
+
+module.exports = { register, login, 
+  logout, requestGetPasswordReset, 
+  requestPasswordReset, forgotPassword, 
+  updateUser, deleteUser, 
+  updatePassword, getUserNameById };

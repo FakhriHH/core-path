@@ -22,7 +22,14 @@ const User = {
   },
   updatePassword: (email, hashedPassword) => {
     return db('users').where({ email }).update({ password: hashedPassword });
-  }
+  },
+
+  getUserNameById: (id) => {
+    return db('users')
+    .select('name')
+    .where({ id_user: id })
+    .first();
+  },
 };
 
 const findByEmail = async (email) => {

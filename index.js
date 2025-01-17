@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require("path");
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
 const meetingRoutes = require('./src/routes/meetingRoutes');
@@ -10,6 +11,7 @@ dotenv.config();
 
 app.use(cors());
 app.use(express.json());
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use(express.urlencoded({ 
   extended: true 
