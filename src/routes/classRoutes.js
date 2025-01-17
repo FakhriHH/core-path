@@ -17,16 +17,9 @@ router.get('/category/:categoryId', getClassesByCategory);
 router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', authenticateToken, getClassesByLevel);
 router.get('/getAllLevel', authenticateToken, authorizeRole([3]), getAllDataLevel);
-<<<<<<< HEAD
-router.get('/getAllCategory', getAllDataCategory);
-=======
 router.get('/getAllCategory', authenticateToken, authorizeRole([3]), getAllDataCategory);
 router.get('/classes/:id_class', authenticateToken, authorizeRole([3]), getAllClassesById);
 router.get('/category/:id_category',authenticateToken, authorizeRole([3]), getAllCategoryById);
-<<<<<<< HEAD
->>>>>>> fakhri-dev
-=======
 router.get('/schedule/:id_level', authenticateToken, authorizeRole([3]), getScheduleByLevel);
->>>>>>> fakhri-dev
 
 module.exports = router;
