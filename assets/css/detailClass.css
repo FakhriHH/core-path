@@ -1,5 +1,6 @@
 body,
 html {
+  background-color: #E7F6FF;
   margin: 0;
   padding: 0;
   font-family: "kreon", serif;
@@ -42,13 +43,11 @@ html {
 .level-card-custom {
   border-radius: 10px;
   background: linear-gradient(to bottom, #1f9fdb, #7dd4d3);
-  text-decoration: none;
   border: none;
 }
 .level-card-custom:hover {
   border-radius: 10px;
   background: linear-gradient(to bottom, #7dd4d3, #1f9fdb);
-  text-decoration: none;
   border: none;
 }
 .card-custom {
@@ -86,26 +85,6 @@ html {
 /* Default style for all levels */
 .card-body h5 {
   font-size: 16px;
-  margin: 10px 0;
-  padding: 10px;
   border-radius: 5px;
   color: #fff;
-  text-align: center;
-}
-
-/* Specific styles for different levels */
-.level-basic {
-  background-color: #4caf50; /* Green */
-}
-
-.level-intermediate {
-  background-color: #2196f3; /* Blue */
-}
-
-.level-advanced {
-  background-color: #ff9800; /* Orange */
-}
-
-.level-expert {
-  background-color: #f44336; /* Red */
 }

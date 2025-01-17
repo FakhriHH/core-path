@@ -210,8 +210,14 @@
     ></script>
 
     <script>
+      // Function to get the category ID from the URL
+      function getCategoryIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("categoryId"); // Extract the category ID
+      }
+
       async function loadSidebarContent() {
-        const level1CardBody = document.querySelector("#level1CardBody");
+        const sidebarContent = document.querySelector("#sidebarContent");
 
         try {
           const response = await fetch("/api/classes/getAllLevel");
@@ -219,20 +225,33 @@
           const data = await response.json();
 
           // Kosongkan kontainer sebelum menambahkan konten baru
-          level1CardBody.innerHTML = "";
+          sidebarContent.innerHTML = "";
 
+          // Tambahkan judul kembali
+          const title = document.createElement("h6");
+          title.className = "text-center mt-4 levelTitle";
+          title.id = "bookingTitle";
+          title.textContent = "Booking Placement Test";
+          sidebarContent.appendChild(title);
+
+          // Tambahkan setiap level sebagai card individual
           data.levels.forEach((item) => {
-            const h5 = document.createElement("h5");
-            h5.className = `mb-0 ${item.level_name}`;
-            h5.textContent = item.level_name;
+            const levelCard = document.createElement("button");
+            levelCard.className =
+              "card text-white level-card-custom d-flex align-items-center justify-content-center";
+            levelCard.id = `levelCard-${item.level_name}`;
 
-            level1CardBody.appendChild(h5);
+            const levelCardBody = document.createElement("div");
+            levelCardBody.className = "card-body";
+            levelCardBody.textContent = item.level_name;
+
+            levelCard.appendChild(levelCardBody);
+            sidebarContent.appendChild(levelCard);
           });
         } catch (error) {
           console.error(error);
-          const sidebarContent = document.getElementById("sidebarContent");
           sidebarContent.innerHTML =
-            '<p class="text-danger">Failed to load sidebar content.</p>';
+            '<p class="text-danger">Failed to load levels. Please try again later.</p>';
         }
       }
 
