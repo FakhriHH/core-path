@@ -186,7 +186,7 @@ const forgotPassword = async (req, res) => {
       });
 
       // Buat link reset password
-      const resetLink = `http://localhost:5000/api/auth/reset-password?token=${token}`;
+      const resetLink = `http://localhost:5000/reset-password?token=${token}`;
 
       // Konfigurasi transporter email
       const transporter = nodemailer.createTransport({

@@ -20,11 +20,11 @@ app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'pages', 'SignUp.html'));
 });
 
-app.get('/forgot', (req, res) => {
+app.get('/forgot-password', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'pages', 'forgot-password.html'));
 });
 
-app.get('/reset', (req, res) => {
+app.get('/reset-password', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'pages', 'reset-password.html'));
 });
 
