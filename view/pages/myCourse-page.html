@@ -65,9 +65,9 @@
         <h3 class="pb-2">My Course</h3>
       </header>
 
-      <div class="opt-btn-my-class my-5">
+      <div id="category-buttons" class="opt-btn-my-class my-5">
         <button id="btn-quranic-lesson" class="btn-my-class">Quranic Lesson</button>
-        <button id="btn-english-lesson" class="btn-my-class">English Lesson</button>
+        <a href="/api/classes/category/2"><button id="btn-english-lesson" class="btn-my-class">English Lesson</button></a>
       </div>
     </section>
 
@@ -76,7 +76,7 @@
         <h3 class="pb-2">Upcoming Class</h3>
       </header>
       <div id="card-container-quranic-lesson" class="card-container my-5 justify-content-center d-none">
-        <div class="card p-3 rounded-4">
+        <div id="class-output" class="card p-3 rounded-4">
           <div class="card-body">
             <h5 class="card-title fw-bold">Senin & Rabu</h5>
             <p class="mb-0">Pukul 13.00 - 14.00 WIB</p>
@@ -174,54 +174,110 @@
   </section>
 
   <script>
-    const btnQuranicLesson = document.getElementById('btn-quranic-lesson');
-    const btnEnglishLesson = document.getElementById('btn-english-lesson');
-    const cardContainerQuranicLesson = document.getElementById('card-container-quranic-lesson');
-    const cardContainerEnglishLesson = document.getElementById('card-container-english-lesson');
-    const cardContainerDefault = document.getElementById('card-container-default');
+    const categoryButtons = document.getElementById('category-buttons');
+const classOutput = document.getElementById('class-output');
 
-    btnQuranicLesson.addEventListener('click', () => {
-      cardContainerDefault.classList.add('d-none');
-      btnEnglishLesson.classList.add('btn-my-class');
-      btnQuranicLesson.classList.remove('btn-my-class');
-      btnQuranicLesson.classList.add('btn-active');
-      cardContainerQuranicLesson.classList.remove('d-none');
-      cardContainerEnglishLesson.classList.add('d-none');
-      });
 
-    btnEnglishLesson.addEventListener('click', () => {
-      cardContainerDefault.classList.add('d-none');
-      btnQuranicLesson.classList.add('btn-my-class');
-      btnEnglishLesson.classList.remove('btn-my-class');
-      btnEnglishLesson.classList.add('btn-active');
+async function loadCategories() {
+      try {
+        const response = await fetch('/api/classess/getAllCategory');
+        const categories = await response.json();
 
-      cardContainerQuranicLesson.classList.add('d-none');
-      cardContainerEnglishLesson.classList.remove('d-none');
-    });
+	console.log(categories);
 
-    const goingToClass = () => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: 'Link Google Meet telah dikirim via Email!',
-        confirmButtonColor: "#1D5671",
-        timer: 2000
-      })
+        categories.forEach(category => {
+          const button = document.createElement('button');
+          button.textContent = category.name_category;
+          button.setAttribute('data-id', category.id_category);
+          button.addEventListener('click', () => loadClasses(category.id_category));
+          categoryButtons.appendChild(button);
+        });
+      } catch (error) {
+        classOutput.textContent = "Gagal memuat kategori.";
+      }
     }
 
-    const menuAdmin = document.getElementById('menu-admin');
-    const openMenuButton = document.getElementById('menu-admin-button');
 
-    openMenuButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menuAdmin.classList.toggle('d-none');
-    });
+async function loadClasses(id_category) {
+      try {
+        const response = await fetch(`/api/classess/category/${id_category}`);
+        if (!response.ok) throw new Error("No classes found for this category.");
 
-    document.addEventListener('click', (e) => {
-      if (!menuAdmin.contains(e.target) && !openMenuButton.contains(e.target)) {
-        menuAdmin.classList.add('d-none');
+        const classes = await response.json();
+	console.log(classes)
+
+        classOutput.innerHTML = `
+          <h3>Classes for Category ID: ${id_category}</h3>
+        `;
+
+        classes.forEach(cls => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <h5>${cls.id_schedule}</h5>
+            <p>Pukul ${cls.id_level}</p>
+            <p>Harga: ${cls.price}</p>
+            <button class="btn" onclick="goingToClass(${cls.id_class})">Going to Class</button>
+          `;
+          classOutput.appendChild(card);
+        });
+      } catch (error) {
+        classOutput.textContent = error.message;
       }
-    });
+    }
+    function goingToClass(classId) {
+      alert(`You are going to class ID: ${classId}`);
+    }
+
+    loadCategories();
+    // const btnQuranicLesson = document.getElementById('btn-quranic-lesson');
+    // const btnEnglishLesson = document.getElementById('btn-english-lesson');
+    // const cardContainerQuranicLesson = document.getElementById('card-container-quranic-lesson');
+    // const cardContainerEnglishLesson = document.getElementById('card-container-english-lesson');
+    // const cardContainerDefault = document.getElementById('card-container-default');
+
+    // btnQuranicLesson.addEventListener('click', () => {
+    //   cardContainerDefault.classList.add('d-none');
+    //   btnEnglishLesson.classList.add('btn-my-class');
+    //   btnQuranicLesson.classList.remove('btn-my-class');
+    //   btnQuranicLesson.classList.add('btn-active');
+    //   cardContainerQuranicLesson.classList.remove('d-none');
+    //   cardContainerEnglishLesson.classList.add('d-none');
+    //   });
+
+    // btnEnglishLesson.addEventListener('click', () => {
+    //   cardContainerDefault.classList.add('d-none');
+    //   btnQuranicLesson.classList.add('btn-my-class');
+    //   btnEnglishLesson.classList.remove('btn-my-class');
+    //   btnEnglishLesson.classList.add('btn-active');
+
+    //   cardContainerQuranicLesson.classList.add('d-none');
+    //   cardContainerEnglishLesson.classList.remove('d-none');
+    // });
+
+    // const goingToClass = () => {
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Berhasil!',
+    //     text: 'Link Google Meet telah dikirim via Email!',
+    //     confirmButtonColor: "#1D5671",
+    //     timer: 2000
+    //   })
+    // }
+
+    // const menuAdmin = document.getElementById('menu-admin');
+    // const openMenuButton = document.getElementById('menu-admin-button');
+
+    // openMenuButton.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    //   menuAdmin.classList.toggle('d-none');
+    // });
+
+    // document.addEventListener('click', (e) => {
+    //   if (!menuAdmin.contains(e.target) && !openMenuButton.contains(e.target)) {
+    //     menuAdmin.classList.add('d-none');
+    //   }
+    // });
   </script>
 
 
