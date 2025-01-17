@@ -8,7 +8,8 @@ const db = knex({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
   },
   migrations: {
     directory: '../database/migrations',
@@ -17,5 +18,15 @@ const db = knex({
     directory: '../database/seeds',
   },
 });
+
+
+db.raw('SELECT 1')
+  .then(() => {
+    console.log('Database connection successful!');
+  })
+  .catch((err) => {
+    console.error('Failed to connect to the database:', err.message);
+  });
+
 
 module.exports = db;

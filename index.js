@@ -28,6 +28,9 @@ app.get('/reset', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'pages', 'reset-password.html'));
 });
 
+app.use(express.urlencoded({
+  extended: true
+}))
 
 app.use('/api/auth', authRoutes);
 
