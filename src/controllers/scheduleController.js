@@ -23,12 +23,13 @@ const getScheduleById = async (req, res) => {
 
 // create schedule
 const createSchedule = async (req, res) => {
-    const { day, time_slot } = req.body;
+    const { day, start_time, end_time } = req.body;
 
     try {
         const newSchedule = {
             day,
-            time_slot
+            start_time,
+            end_time
         };
 
         const schedule = await scheduleModel.createSchedule(newSchedule);
