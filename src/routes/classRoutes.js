@@ -18,9 +18,9 @@ router.get('/role/:roleId', authenticateToken, getClassesByRole);
 router.get('/level/:levelId', getClassesByLevel);
 router.get('/getAllLevel', getAllDataLevel);
 router.get('/getAllCategory', getAllDataCategory);
-router.get('/classes/:id_class', authenticateToken, authorizeRole([3]), getAllClassesById);
-router.get('/category/:id_category',authenticateToken, authorizeRole([3]), getAllCategoryById);
-router.get('/schedule/:id_level', authenticateToken, authorizeRole([3]), getScheduleByLevel);
-router.get('/levels/:id_category',authenticateToken, authorizeRole([3]), getLevelsByCategory);
+router.get('/classes/:id_class', getAllClassesById);
+router.get('/category/:id_category', getAllCategoryById);
+router.get('/schedule/:id_level', getScheduleByLevel);
+router.get('/levels/:id_category', getLevelsByCategory);
 
 module.exports = router;

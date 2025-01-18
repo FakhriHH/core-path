@@ -1,0 +1,160 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #f0f4f8; /* Warna latar belakang halaman */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Main Container */
+#login-page {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section */
+#left-section {
+  background-color: #0d3b66; /* Warna biru gelap */
+  color: #ffffff;
+  flex: 1;
+  text-align: center;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#left-section .logo {
+  width: 100px;
+  margin: 0 auto 1rem auto;
+}
+
+#left-section .logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%; /* Membuat lingkaran */
+  width: 100px; /* Sesuaikan ukuran lingkaran */
+  height: 100px; /* Sesuaikan ukuran lingkaran */
+  padding: 10px; /* Jarak antara logo dan lingkaran */
+  margin: 0 auto; /* Memastikan container berada di tengah secara horizontal */
+}
+
+.logo {
+  width: 100%; /* Membuat logo memenuhi lingkaran */
+  height: auto;
+  border-radius: 50%; /* Membuat logo tetap berbentuk bulat jika logo berbentuk kotak */
+}
+
+
+#left-section h1 {
+  font-size: 28px;
+  margin-bottom: 0.5rem;
+}
+
+#left-section p {
+  font-size: 18px;
+}
+
+#left-section {
+  background-image: 
+    linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.85)), /* Overlay transparan */
+    url('/assets/IMG/wallpaper.png'); /* Gambar background */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Right Section */
+#right-section {
+  background-color: #e8f1f5; /* Warna biru muda */
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#right-section h1 {
+  font-size: 24px;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  width: 100%;
+  max-width: 300px;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333333;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.forgot-password a {
+  color: #2B547A;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2B547A;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1D3E56;
+}
+
+p {
+  margin-top: 1rem;
+  font-size: 14px;
+}
+
+p a {
+  color: #0d3b66;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}

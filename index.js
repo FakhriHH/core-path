@@ -1,10 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const cors = require('cors');
-const path = require("path");
 const authRoutes = require('./src/routes/authRoutes');
 const classRoutes = require('./src/routes/classRoutes');
-const path = require("path");
 
 dotenv.config();
 
@@ -18,6 +17,22 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.urlencoded({ 
   extended: true 
 }));
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'LoginPage.html'));
+});
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'SignUp.html'));
+});
+
+app.get('/forgot-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'forgot-password.html'));
+});
+
+app.get('/reset-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'pages', 'reset-password.html'));
+});
 
 app.get('/detail_class', (req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'detailClass.html'));
@@ -50,7 +65,6 @@ app.get('/payment', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/classes', classRoutes);
-app.use('/api/meeting', meetingRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
