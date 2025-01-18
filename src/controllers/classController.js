@@ -151,20 +151,20 @@ const getClassesByLevel = async (req, res) => {
 
 const getAllDataLevel = async (req, res) => {
   try {
-    const levels = await db('levels').select('*'); 
+    const levels = await db('levels').select('*');
     res.status(200).json({ levels });
   } catch (error) {
-    console.error('Error in getAllDataLevel:', error.message); 
+    console.error('Error in getAllDataLevel:', error.message);
     res.status(500).json({ error: 'Failed to fetch levels data' });
   }
 };
 
 const getAllDataCategory = async (req, res) => {
   try {
-    const category = await db('category_class').select('*'); 
+    const category = await db('category_class').select('*');
     res.status(200).json({ category });
   } catch (error) {
-    console.error('Error in getAllDataCategory:', error.message); 
+    console.error('Error in getAllDataCategory:', error.message);
     res.status(500).json({ error: 'Failed to fetch class category data' });
   }
 };
@@ -185,11 +185,13 @@ const getAllClassesById = async (req, res) => {
 
 const getDayName = (dateString) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { weekday: 'long' }); 
+  return date.toLocaleDateString('en-US', { weekday: 'long' });
 };
 
 const getScheduleByLevel = async (req, res) => {
   const { id_level } = req.params;
+
+  console.log("Request to get schedules for level:", id_level);
 
   try {
     const schedules = await Schedule.getScheduleByLevel(id_level);
@@ -199,13 +201,19 @@ const getScheduleByLevel = async (req, res) => {
       day: getDayName(schedule.day),
     }));
 
+    console.log("Formatted schedules:", formattedSchedules);
+
     res.status(200).json(formattedSchedules);
-    
-    
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving schedule", error: error.message });
+    console.error("Error retrieving schedule:", error.message);
+    res.status(500).json({
+      message: "Error retrieving schedule",
+      error: error.message,
+    });
   }
-}
+};
+
+
 
 
 module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel };

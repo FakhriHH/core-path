@@ -15,11 +15,11 @@ app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/detail_class', (req, res) => {
-  res.sendFile(path.join(__dirname, 'view', 'section', 'detailClass.html'));
+  res.sendFile(path.join(__dirname, 'view', 'detailClass.html'));
 });
 
-app.get('/aboutUs', (req, res) => {
-  res.sendFile(path.join(__dirname, 'view', 'section', 'aboutUs.html'));
+app.get('/about_Us', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'aboutUs.html'));
 });
 
 // Routing

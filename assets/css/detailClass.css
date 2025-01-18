@@ -88,3 +88,8 @@ html {
   border-radius: 5px;
   color: #fff;
 }
+#message-container {
+  color: red;
+  margin-top: 10px;
+  font-style: italic;
+}

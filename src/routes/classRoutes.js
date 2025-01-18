@@ -16,6 +16,6 @@ router.get('/getAllLevel', getAllDataLevel);
 router.get('/getAllCategory', getAllDataCategory);
 router.get('/classes/:id_class', authenticateToken, authorizeRole([3]), getAllClassesById);
 router.get('/category/:id_category',authenticateToken, authorizeRole([3]), getAllCategoryById);
-router.get('/schedule/:id_level', authenticateToken, authorizeRole([3]), getScheduleByLevel);
+router.get('/schedule/:id_level', getScheduleByLevel);
 
 module.exports = router;

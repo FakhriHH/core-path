@@ -92,18 +92,27 @@ class User {
   }
 }
 
-class Schedule {
+class Schedule { 
   static async getScheduleByLevel(id_level) {
-    return db('classes')
-    .join('schedule', 'classes.id_schedule', '=', 'schedule.id_schedule')
-    .join('levels', 'classes.id_level', '=', 'levels.id_level')
-    .select(
-      'schedule.id_schedule',
-      'schedule.day',
-      'schedule.start_time',
-      'schedule.end_time'
-    )
-    .where('classes.id_level', id_level)
+    try {
+      console.log("Fetching schedules for level:", id_level);
+      const result = await db('classes')
+        .join('schedule', 'classes.id_schedule', '=', 'schedule.id_schedule')
+        .join('levels', 'classes.id_level', '=', 'levels.id_level')
+        .select(
+          'schedule.id_schedule',
+          'schedule.day',
+          'schedule.start_time',
+          'schedule.end_time'
+        )
+        .where('classes.id_level', id_level);
+
+      console.log("Schedules fetched:", result);
+      return result;
+    } catch (error) {
+      console.error("Error fetching schedules:", error);
+      throw error; // Pastikan error dilempar untuk menangkapnya di controller
+    }
   }
 }
 
