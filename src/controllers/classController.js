@@ -118,8 +118,14 @@ const getClassesByCategory = async (req, res) => {
   const { categoryId } = req.params;
 
   try {
+
     const classesByCategory = await Classes.getAllDataClassByCategory(categoryId);
-    res.status(200).json(classesByCategory); // Kembalikan data JSON
+    const formattedSchedules = classesByCategory.map((schedule) => ({
+      ...schedule,
+      day: getDayName(schedule.day),
+    }));
+
+    res.status(200).json(formattedSchedules);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving classes by category", error: err.message });
   }
@@ -204,16 +210,28 @@ const getScheduleByLevel = async (req, res) => {
     console.log("Formatted schedules:", formattedSchedules);
 
     res.status(200).json(formattedSchedules);
+    
+    
   } catch (error) {
-    console.error("Error retrieving schedule:", error.message);
+    res.status(500).json({ message: "Error retrieving schedule", error: error.message });
+  }
+}
+
+const getLevelsByCategory = async (req, res) => {
+  const { id_category } = req.params;
+
+  try {
+    const levels = await Levels.getLevelsByCategory(id_category);
+
+    res.status(200).json(levels);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({
-      message: "Error retrieving schedule",
-      error: error.message,
+      success: false,
+      message: 'An error occurred while fetching levels.',
     });
   }
 };
 
 
-
-
-module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel };
+module.exports = { createClass, getClasses, updateClass, deleteClass, getClassesByCategory, getClassesByRole, getClassesByLevel, getAllDataLevel, getAllDataCategory, getAllClassesById, getAllCategoryById, getScheduleByLevel, getScheduleByLevel, getLevelsByCategory };

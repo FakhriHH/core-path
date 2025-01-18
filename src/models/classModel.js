@@ -46,8 +46,16 @@ class Classes {
   static async getAllDataClassByCategory(categoryId) {
     return db('classes')
       .join('category_class', 'classes.id_category', '=', 'category_class.id_category')
+      .join('schedule', 'classes.id_schedule', '=', 'schedule.id_schedule')
+      .join('levels', 'classes.id_level', '=', 'levels.id_level')
       .where({ 'classes.id_category': categoryId })
-      .select('classes.id_class', 'classes.id_schedule', 'classes.id_level', 'classes.price', 'category_class.name_category');
+      .select(
+        'schedule.day',
+        'schedule.start_time',
+        'schedule.end_time',
+        'category_class.name_category',
+        'levels.level_name'
+      );
   }
 
   static async getAllDataClassByRole(roleId) {
@@ -75,14 +83,21 @@ class CategoryClass {
   static async getAllDataCategory() {
     return db('category_class').select('*');
   }
+
 }
 
 class Levels {
   static async getLevelById(id_level) {
     return db('levels').where({ id_level }).first();
   }
-  static async getAllDataLevel() {
-    return db('levels').select('*');
+  
+
+  static async getLevelsByCategory(id_category) {
+    return db('classes')
+    .join('levels', 'classes.id_level', '=', 'levels.id_level')
+    .join('category_class', 'category_class.id_category', '=', 'classes.id_category')
+    .select('levels.id_level', 'levels.level_name')
+    .where('category_class.id_category', id_category);
   }
 }
 

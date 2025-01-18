@@ -46,6 +46,8 @@ const register = async (req, res) => {
       id_role
     };
 
+    console.log('new user :', newUser);
+
     // Simpan user baru
     await User.createUser(newUser);
     res.status(201).json({ message: 'User registered successfully' });
@@ -70,7 +72,8 @@ const login = async (req, res) => {
       return res.status(400).json({ message: 'Incorrect Password' });
     }
 
-    const token = jwt.sign({ id: user.id_user, role: user.id_role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id_user, email: user.email, role: user.id_role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
     res.status(200).json({ message: 'Login successful', token });
   } catch (err) {
     console.error('Internal Server Error:', err);
@@ -361,5 +364,25 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const getUserNameById = async (req, res) => {
+  const { id } = req.params;
 
-module.exports = { register, login, logout, requestGetPasswordReset, requestPasswordReset, forgotPassword, updateUser, deleteUser, updatePassword };
+  try {
+    const user = await User.getUserNameById(id); 
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching user',
+    });
+  }
+};
+
+
+module.exports = { register, login, 
+  logout, requestGetPasswordReset, 
+  requestPasswordReset, forgotPassword, 
+  updateUser, deleteUser, 
+  updatePassword, getUserNameById };
